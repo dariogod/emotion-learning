@@ -1,0 +1,152 @@
+[
+    {
+        "premise": "Conceptually cream skimming has two basic dimensions - product and geography.",
+        "hypothesis": "Product and geography are what make cream skimming work.",
+        "emotion_info_premise": {
+            "arousal": 0.2,
+            "valence": 0.5,
+            "intensity": 0.1
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.3,
+            "valence": 0.6,
+            "intensity": 0.4
+        },
+        "label": 1
+    },
+    {
+        "premise": "you know during the season and i guess at at your level uh you lose them to the next level if if they decide to recall the the parent tea\u2026",
+        "hypothesis": "You lose the things to the following level if the people recall.",
+        "emotion_info_premise": {
+            "arousal": 0.3,
+            "valence": 0.4,
+            "intensity": 0.2
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.3,
+            "valence": 0.4,
+            "intensity": 0.2
+        },
+        "label": 0
+    },
+    {
+        "premise": "One of our number will carry out your instructions minutely.",
+        "hypothesis": "A member of my team will execute your orders with immense precision.",
+        "emotion_info_premise": {
+            "arousal": 0.3,
+            "valence": 0.6,
+            "intensity": 0.4
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.6,
+            "valence": 0.7,
+            "intensity": 0.65
+        },
+        "label": 0
+    },
+    {
+        "premise": "How do you know? All this is their information again.",
+        "hypothesis": "This information belongs to them.",
+        "emotion_info_premise": {
+            "arousal": 0.4,
+            "valence": 0.3,
+            "intensity": 0.3
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.1,
+            "valence": 0.5,
+            "intensity": 0.1
+        },
+        "label": 0
+    },
+    {
+        "premise": "yeah i tell you what though if you go price some of those tennis shoes i can see why now you know they're getting up in the hundred dollar\u2026",
+        "hypothesis": "The tennis shoes have a range of prices.",
+        "emotion_info_premise": {
+            "arousal": 0.4,
+            "valence": 0.3,
+            "intensity": 0.5
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.1,
+            "valence": 0.5,
+            "intensity": 0.1
+        },
+        "label": 1
+    },
+    {
+        "premise": "my walkman broke so i'm upset now i just have to turn the stereo up real loud",
+        "hypothesis": "I'm upset that my walkman broke and now I have to turn the stereo up really loud.",
+        "emotion_info_premise": {
+            "arousal": 0.6,
+            "valence": 0.3,
+            "intensity": 0.5
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.7,
+            "valence": 0.2,
+            "intensity": 0.6
+        },
+        "label": 0
+    },
+    {
+        "premise": "But a few Christian mosaics survive above the apse is the Virgin with the infant Jesus, with the Archangel Gabriel to the right (his\u2026",
+        "hypothesis": "Most of the Christian mosaics were destroyed by Muslims.",
+        "emotion_info_premise": {
+            "arousal": 0.2,
+            "valence": 0.6,
+            "intensity": 0.3
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.6,
+            "valence": 0.2,
+            "intensity": 0.7
+        },
+        "label": 1
+    },
+    {
+        "premise": "(Read for Slate 's take on Jackson's findings.)",
+        "hypothesis": "Slate had an opinion on Jackson's findings.",
+        "emotion_info_premise": {
+            "arousal": 0.2,
+            "valence": 0.5,
+            "intensity": 0.1
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.2,
+            "valence": 0.5,
+            "intensity": 0.2
+        },
+        "label": 0
+    },
+    {
+        "premise": "Gays and lesbians.",
+        "hypothesis": "Heterosexuals.",
+        "emotion_info_premise": {
+            "arousal": 0.3,
+            "valence": 0.5,
+            "intensity": 0.2
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.1,
+            "valence": 0.5,
+            "intensity": 0.1
+        },
+        "label": 2
+    },
+    {
+        "premise": "At the end of Rue des Francs-Bourgeois is what many consider to be the city's most handsome residential square, the Place des Vosges, with\u2026",
+        "hypothesis": "Place des Vosges is constructed entirely of gray marble.",
+        "emotion_info_premise": {
+            "arousal": 0.2,
+            "valence": 0.7,
+            "intensity": 0.3
+        },
+        "emotion_info_hypothesis": {
+            "arousal": 0.1,
+            "valence": 0.5,
+            "intensity": 0.2
+        },
+        "label": 2
+    }
+]
