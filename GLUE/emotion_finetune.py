@@ -32,6 +32,7 @@ from sklearn.metrics import accuracy_score, f1_score, matthews_corrcoef
 from scipy.stats import pearsonr, spearmanr
 import matplotlib.pyplot as plt
 from typing import Dict, List, Optional, Union, Tuple, Any
+import random
 
 # Configure logging
 logging.basicConfig(
@@ -383,6 +384,12 @@ def parse_args():
     )
     
     parser.add_argument(
+        "--use_emotion",
+        action="store_true",
+        help="Whether to use emotion features in training (if False, performs standard finetuning)"
+    )
+    
+    parser.add_argument(
         "--weighting_strategy", 
         type=str, 
         default="premise_bell_curve",
@@ -444,7 +451,7 @@ def prepare_augmented_dataset(augmented_data_path, tokenizer, weighting_strategy
     Prepare datasets from the augmented data file.
     
     Args:
-        augmented_data_path: Path to the augmented data file
+        augmented_data_path: Path to the augmented MNLI dataset created by data_augmentation.py
         tokenizer: Tokenizer for encoding text
         weighting_strategy: Strategy for sample weighting
         curriculum: Whether to use curriculum learning
@@ -488,22 +495,79 @@ def prepare_augmented_dataset(augmented_data_path, tokenizer, weighting_strategy
         emotion_key=curriculum_key
     )
     
-    # Load validation dataset from GLUE
-    logger.info("Loading validation dataset from GLUE")
-    validation_dataset = load_dataset("glue", "mnli", split="validation_matched")
+    # Load test dataset from test_set.json
+    logger.info("Loading test dataset from data/test_set.json")
+    test_set_path = "data/test_set.json"
     
-    # Take 200 random samples from the validation dataset
-    logger.info("Selecting 200 random samples for evaluation")
-    total_samples = len(validation_dataset)
-    random_indices = np.random.choice(total_samples, size=200, replace=False)
-    validation_dataset = validation_dataset.select(random_indices)
-    
-    # Process validation dataset
-    validation_dataset = EmotionWeightedMNLIDataset(
-        validation_dataset,
-        tokenizer,
-        sample_weights=None  # No weighting for validation
-    )
+    try:
+        with open(test_set_path, "r") as f:
+            test_data = json.load(f)
+        
+        # Convert test data to the format expected by EmotionWeightedMNLIDataset
+        test_premises = []
+        test_hypotheses = []
+        test_labels = []
+        test_emotion_scores = []
+        
+        for item in test_data:
+            test_premises.append(item["premise"]["text"])
+            test_hypotheses.append(item["hypothesis"]["text"])
+            test_labels.append(item["label"])
+            
+            # Create emotion_scores in the same format as training data
+            emotion_score = {
+                "premise": {
+                    "Emotional Intensity": item["premise"]["emotion_info"]["intensity"],
+                    "Valence": item["premise"]["emotion_info"]["valence"],
+                    "Arousal": item["premise"]["emotion_info"]["arousal"]
+                },
+                "hypothesis": {
+                    "Emotional Intensity": item["hypothesis"]["emotion_info"]["intensity"],
+                    "Valence": item["hypothesis"]["emotion_info"]["valence"],
+                    "Arousal": item["hypothesis"]["emotion_info"]["arousal"]
+                },
+                "contrast": abs(item["premise"]["emotion_info"]["intensity"] - 
+                               item["hypothesis"]["emotion_info"]["intensity"])
+            }
+            test_emotion_scores.append(emotion_score)
+        
+        test_data_dict = {
+            "premise": test_premises,
+            "hypothesis": test_hypotheses,
+            "label": test_labels,
+            "emotion_scores": test_emotion_scores
+        }
+        
+        test_dataset = HFDataset.from_dict(test_data_dict)
+        
+        # Create custom dataset for evaluation
+        validation_dataset = EmotionWeightedMNLIDataset(
+            test_dataset,
+            tokenizer,
+            sample_weights=None  # No weighting for validation
+        )
+        
+        logger.info(f"Test dataset loaded with {len(validation_dataset)} examples")
+        
+    except Exception as e:
+        logger.error(f"Error loading test dataset: {e}")
+        logger.info("Falling back to random sample from MNLI validation dataset")
+        
+        # Fallback to MNLI validation dataset
+        validation_dataset = load_dataset("glue", "mnli", split="validation_matched")
+        
+        # Take 200 random samples from the validation dataset
+        logger.info("Selecting 200 random samples for evaluation")
+        total_samples = len(validation_dataset)
+        random_indices = np.random.choice(total_samples, size=200, replace=False)
+        validation_dataset = validation_dataset.select(random_indices)
+        
+        # Process validation dataset
+        validation_dataset = EmotionWeightedMNLIDataset(
+            validation_dataset,
+            tokenizer,
+            sample_weights=None  # No weighting for validation
+        )
     
     return train_dataset, validation_dataset
 
@@ -536,13 +600,161 @@ def compute_metrics(preds, labels):
     
     return metrics
 
+def evaluate_on_test_set(model, tokenizer, emotion_loss_weight=0.0):
+    """
+    Perform a final evaluation on the test set.
+    
+    Args:
+        model: The trained model
+        tokenizer: The tokenizer
+        emotion_loss_weight: Whether to use emotion features in loss
+        
+    Returns:
+        Dictionary of evaluation metrics
+    """
+    logger.info("Running final evaluation on test set...")
+    
+    # Load test dataset
+    test_set_path = "data/test_set.json"
+    
+    try:
+        with open(test_set_path, "r") as f:
+            test_data = json.load(f)
+        
+        # Convert test data to the format expected by EmotionWeightedMNLIDataset
+        test_premises = []
+        test_hypotheses = []
+        test_labels = []
+        test_emotion_scores = []
+        
+        for item in test_data:
+            test_premises.append(item["premise"]["text"])
+            test_hypotheses.append(item["hypothesis"]["text"])
+            test_labels.append(item["label"])
+            
+            # Create emotion_scores in the same format as training data
+            emotion_score = {
+                "premise": {
+                    "Emotional Intensity": item["premise"]["emotion_info"]["intensity"],
+                    "Valence": item["premise"]["emotion_info"]["valence"],
+                    "Arousal": item["premise"]["emotion_info"]["arousal"]
+                },
+                "hypothesis": {
+                    "Emotional Intensity": item["hypothesis"]["emotion_info"]["intensity"],
+                    "Valence": item["hypothesis"]["emotion_info"]["valence"],
+                    "Arousal": item["hypothesis"]["emotion_info"]["arousal"]
+                },
+                "contrast": abs(item["premise"]["emotion_info"]["intensity"] - 
+                               item["hypothesis"]["emotion_info"]["intensity"])
+            }
+            test_emotion_scores.append(emotion_score)
+        
+        test_data_dict = {
+            "premise": test_premises,
+            "hypothesis": test_hypotheses,
+            "label": test_labels,
+            "emotion_scores": test_emotion_scores
+        }
+        
+        test_dataset = HFDataset.from_dict(test_data_dict)
+        
+        # Create custom dataset for evaluation
+        test_dataset = EmotionWeightedMNLIDataset(
+            test_dataset,
+            tokenizer,
+            sample_weights=None  # No weighting for testing
+        )
+        
+        logger.info(f"Test dataset loaded with {len(test_dataset)} examples")
+        
+        # Set up evaluation args
+        eval_args = TrainingArguments(
+            output_dir="./eval_output",
+            per_device_eval_batch_size=32,
+            remove_unused_columns=False,
+        )
+        
+        # Set up the emotion-aware trainer for evaluation only
+        trainer = EmotionWeightedTrainer(
+            model=model,
+            args=eval_args,
+            eval_dataset=test_dataset,
+            tokenizer=tokenizer,
+            compute_metrics=lambda p: compute_metrics(p.predictions, p.label_ids),
+            emotion_loss_weight=emotion_loss_weight
+        )
+        
+        # Run evaluation
+        metrics = trainer.evaluate()
+        
+        # Convert to more readable format
+        final_metrics = {
+            "accuracy": metrics["eval_accuracy"],
+            "f1_macro": metrics["eval_f1_macro"],
+            "f1_contradiction": metrics.get("eval_f1_contradiction", 0.0),
+            "f1_entailment": metrics.get("eval_f1_entailment", 0.0),
+            "f1_neutral": metrics.get("eval_f1_neutral", 0.0),
+        }
+        
+        # Log results
+        logger.info("Final test metrics:")
+        for key, value in final_metrics.items():
+            logger.info(f"  {key}: {value:.4f}")
+        
+        # Also log per-emotion-level metrics if possible
+        # Split test data by emotion intensity levels
+        high_intensity_indices = []
+        medium_intensity_indices = []
+        low_intensity_indices = []
+        
+        for i, item in enumerate(test_data):
+            intensity = item["premise"]["emotion_info"]["intensity"]
+            if intensity >= 0.7:
+                high_intensity_indices.append(i)
+            elif intensity >= 0.4:
+                medium_intensity_indices.append(i)
+            else:
+                low_intensity_indices.append(i)
+        
+        # Log distribution
+        logger.info(f"Test examples by intensity: high={len(high_intensity_indices)}, "
+                   f"medium={len(medium_intensity_indices)}, low={len(low_intensity_indices)}")
+        
+        # Calculate per-intensity metrics
+        all_preds = trainer.predict(test_dataset).predictions
+        all_preds = np.argmax(all_preds, axis=1)
+        all_labels = np.array(test_labels)
+        
+        if len(high_intensity_indices) > 0:
+            high_preds = all_preds[high_intensity_indices]
+            high_labels = all_labels[high_intensity_indices]
+            high_acc = accuracy_score(high_labels, high_preds)
+            logger.info(f"  High intensity accuracy: {high_acc:.4f}")
+        
+        if len(medium_intensity_indices) > 0:
+            med_preds = all_preds[medium_intensity_indices]
+            med_labels = all_labels[medium_intensity_indices]
+            med_acc = accuracy_score(med_labels, med_preds)
+            logger.info(f"  Medium intensity accuracy: {med_acc:.4f}")
+        
+        if len(low_intensity_indices) > 0:
+            low_preds = all_preds[low_intensity_indices]
+            low_labels = all_labels[low_intensity_indices]
+            low_acc = accuracy_score(low_labels, low_preds)
+            logger.info(f"  Low intensity accuracy: {low_acc:.4f}")
+        
+        return final_metrics
+        
+    except Exception as e:
+        logger.error(f"Error during final evaluation: {e}")
+        return {"error": str(e)}
+
 def main():
     """Main entry point for the script."""
     args = parse_args()
     
-    # Set random seeds
-    torch.manual_seed(args.seed)
-    np.random.seed(args.seed)
+    # Set random seeds for reproducibility
+    set_seed(args.seed)
     
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
@@ -555,6 +767,7 @@ def main():
     
     # Log arguments
     logger.info(f"Running with arguments: {args}")
+    logger.info(f"Using emotion features: {args.use_emotion}")
     
     # Initialize tokenizer and model
     logger.info(f"Loading tokenizer and model: {args.model_name}")
@@ -570,16 +783,19 @@ def main():
     train_data_path = "train_set.json"
     logger.info(f"Using hardcoded training data file: {train_data_path}")
     
-    # Prepare datasets
+    # Prepare datasets - if not using emotion features, ignore emotion weightings
+    use_weighting = args.use_emotion and args.weighting_strategy != "uniform"
+    use_curriculum = args.use_emotion and args.curriculum
+    
     train_dataset, eval_dataset = prepare_augmented_dataset(
         train_data_path, 
         tokenizer,
-        weighting_strategy=args.weighting_strategy,
-        curriculum=args.curriculum,
+        weighting_strategy="uniform" if not use_weighting else args.weighting_strategy,
+        curriculum=use_curriculum,
         curriculum_key=args.curriculum_key
     )
     
-    # Configure training arguments
+    # Configure training arguments with deterministic behavior
     training_args = TrainingArguments(
         output_dir=args.output_dir,
         num_train_epochs=args.epochs,
@@ -593,23 +809,41 @@ def main():
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="accuracy",
+        seed=args.seed,
+        data_seed=args.seed,
+        # Force deterministic behavior
+        dataloader_drop_last=False,
+        dataloader_num_workers=0,  # Use main process for data loading
     )
     
-    # Setup the emotion-aware trainer with our custom loss function
-    trainer = EmotionWeightedTrainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
-        tokenizer=tokenizer,
-        compute_metrics=lambda p: compute_metrics(p.predictions, p.label_ids),
-        # Emotion loss parameters
-        emotion_loss_weight=args.emotion_loss_weight,
-        emotion_features_to_use=args.emotion_features
-    )
+    # Setup trainer - use standard Trainer if not using emotion features
+    if args.use_emotion:
+        logger.info("Using emotion-aware trainer with emotion-based loss")
+        trainer = EmotionWeightedTrainer(
+            model=model,
+            args=training_args,
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset,
+            tokenizer=tokenizer,
+            compute_metrics=lambda p: compute_metrics(p.predictions, p.label_ids),
+            # Emotion loss parameters
+            emotion_loss_weight=args.emotion_loss_weight,
+            emotion_features_to_use=args.emotion_features
+        )
+    else:
+        logger.info("Using standard trainer without emotion features")
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            train_dataset=train_dataset,
+            eval_dataset=eval_dataset,
+            tokenizer=tokenizer,
+            compute_metrics=lambda p: compute_metrics(p.predictions, p.label_ids)
+        )
     
     # Train the model
-    logger.info("Starting training with emotion-aware loss")
+    trainer_type = "emotion-aware" if args.use_emotion else "standard"
+    logger.info(f"Starting training with {trainer_type} trainer")
     trainer.train()
     
     # Save the final model
@@ -617,7 +851,46 @@ def main():
     trainer.save_model(f"{args.output_dir}/final_model")
     tokenizer.save_pretrained(f"{args.output_dir}/final_model")
     
-    logger.info("Training completed successfully")
+    # Run final evaluation on test set
+    logger.info("Running final evaluation on test set")
+    final_metrics = evaluate_on_test_set(
+        model=model, 
+        tokenizer=tokenizer,
+        emotion_loss_weight=args.emotion_loss_weight if args.use_emotion else 0.0
+    )
+    
+    # Save final metrics
+    with open(os.path.join(args.output_dir, "final_test_metrics.json"), "w") as f:
+        json.dump(final_metrics, f, indent=2)
+    
+    logger.info("Training and evaluation completed successfully")
+
+def set_seed(seed):
+    """
+    Set random seeds for full reproducibility.
+    
+    Args:
+        seed: The seed to use
+    """
+    # Python's built-in random module
+    random.seed(seed)
+    
+    # NumPy
+    np.random.seed(seed)
+    
+    # PyTorch
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+        
+    # Set deterministic algorithms
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    
+    # Set environment variables that might affect reproducibility
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    
+    logger.info(f"Random seed set to {seed} for full reproducibility")
 
 if __name__ == "__main__":
     main() 
