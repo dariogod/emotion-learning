@@ -195,11 +195,29 @@ class EmotionWeightedMNLIDataset(Dataset):
         return item
 
 class EmotionWeightedTrainer(Trainer):
-    """Custom trainer that supports sample weighting based on emotion scores."""
+    """Custom trainer that incorporates emotion features into the loss function."""
+    
+    def __init__(self, *args, emotion_loss_weight=0.5, emotion_features_to_use=None, **kwargs):
+        """
+        Initialize the emotion-weighted trainer.
+        
+        Args:
+            emotion_loss_weight: Weight for the emotion-based loss term (0.0 to 1.0)
+            emotion_features_to_use: List of emotion features to incorporate in loss
+        """
+        super().__init__(*args, **kwargs)
+        self.emotion_loss_weight = emotion_loss_weight
+        
+        # Default emotion features to use if not specified
+        self.emotion_features = emotion_features_to_use or [
+            "premise_intensity", "hypothesis_intensity", "contrast"
+        ]
+        logger.info(f"Using emotion features in loss: {self.emotion_features}")
+        logger.info(f"Emotion loss weight: {self.emotion_loss_weight}")
     
     def compute_loss(self, model, inputs, return_outputs=False):
         """
-        Custom loss computation that incorporates sample weights.
+        Custom loss computation that incorporates emotion features.
         
         Args:
             model: The model to train
@@ -212,20 +230,26 @@ class EmotionWeightedTrainer(Trainer):
         # Get sample weights
         weights = inputs.pop("weight", None)
         
-        # Extract any emotion features (not used in loss but could be used for monitoring)
-        premise_intensity = inputs.pop("premise_intensity", None)
-        premise_valence = inputs.pop("premise_valence", None)
-        premise_arousal = inputs.pop("premise_arousal", None)
-        hypothesis_intensity = inputs.pop("hypothesis_intensity", None)
-        hypothesis_valence = inputs.pop("hypothesis_valence", None)
-        hypothesis_arousal = inputs.pop("hypothesis_arousal", None)
-        contrast = inputs.pop("contrast", None)
+        # Extract emotion features before passing inputs to model
+        emotion_features = {}
+        for feature in self.emotion_features:
+            if feature in inputs:
+                emotion_features[feature] = inputs.pop(feature)
+        
+        # Also extract any other emotion features not used in loss (to avoid errors)
+        unused_features = [
+            "premise_valence", "premise_arousal",
+            "hypothesis_valence", "hypothesis_arousal"
+        ]
+        for feature in unused_features:
+            if feature in inputs:
+                inputs.pop(feature)
         
         # Forward pass
         outputs = model(**inputs)
         logits = outputs.logits
         
-        # Compute standard loss
+        # Compute standard cross-entropy loss
         loss_fct = torch.nn.CrossEntropyLoss(reduction="none")
         labels = inputs.get("labels")
         per_sample_loss = loss_fct(logits.view(-1, model.config.num_labels), labels.view(-1))
@@ -236,7 +260,72 @@ class EmotionWeightedTrainer(Trainer):
         else:
             weighted_loss = per_sample_loss.mean()
         
-        return (weighted_loss, outputs) if return_outputs else weighted_loss
+        # Calculate emotion-based loss component if any emotion features were provided
+        emotion_loss = 0.0
+        if emotion_features and self.emotion_loss_weight > 0:
+            # Get predicted class probabilities
+            probs = F.softmax(logits, dim=-1)
+            
+            # Higher emotion intensity should increase loss for contradictions (label 0)
+            # and decrease loss for entailments (label 1)
+            if "premise_intensity" in emotion_features:
+                # Scale emotion intensity to be between 0 and 1
+                premise_intensity = emotion_features["premise_intensity"]
+                # For contradictions (label 0): higher intensity -> higher loss
+                # For entailments (label 1): higher intensity -> lower loss
+                intensity_loss = torch.zeros_like(per_sample_loss)
+                contradiction_mask = (labels == 0)
+                entailment_mask = (labels == 1)
+                
+                # Contradiction: penalize low confidence when intensity is high
+                if contradiction_mask.any():
+                    intensity_loss[contradiction_mask] = premise_intensity[contradiction_mask] * (1 - probs[contradiction_mask, 0])
+                
+                # Entailment: penalize low confidence when intensity is high
+                if entailment_mask.any():
+                    intensity_loss[entailment_mask] = premise_intensity[entailment_mask] * (1 - probs[entailment_mask, 1])
+                
+                emotion_loss += intensity_loss.mean()
+            
+            # Similar approach for hypothesis intensity
+            if "hypothesis_intensity" in emotion_features:
+                hypothesis_intensity = emotion_features["hypothesis_intensity"]
+                intensity_loss = torch.zeros_like(per_sample_loss)
+                contradiction_mask = (labels == 0)
+                entailment_mask = (labels == 1)
+                
+                if contradiction_mask.any():
+                    intensity_loss[contradiction_mask] = hypothesis_intensity[contradiction_mask] * (1 - probs[contradiction_mask, 0])
+                
+                if entailment_mask.any():
+                    intensity_loss[entailment_mask] = hypothesis_intensity[entailment_mask] * (1 - probs[entailment_mask, 1])
+                
+                emotion_loss += intensity_loss.mean()
+            
+            # Contrast is the emotional difference between premise and hypothesis
+            # Higher contrast should increase the probability of contradiction
+            if "contrast" in emotion_features:
+                contrast = emotion_features["contrast"]
+                contrast_loss = torch.zeros_like(per_sample_loss)
+                contradiction_mask = (labels == 0)
+                entailment_mask = (labels == 1)
+                
+                # For contradictions: penalize low contradiction confidence when contrast is high
+                if contradiction_mask.any():
+                    contrast_loss[contradiction_mask] = contrast[contradiction_mask] * (1 - probs[contradiction_mask, 0])
+                
+                # For entailments: penalize high contradiction confidence when contrast is high
+                if entailment_mask.any():
+                    contrast_loss[entailment_mask] = contrast[entailment_mask] * probs[entailment_mask, 0]
+                
+                emotion_loss += contrast_loss.mean()
+        
+        # Combine the standard loss with the emotion-based loss
+        final_loss = (1 - self.emotion_loss_weight) * weighted_loss
+        if emotion_loss > 0:
+            final_loss += self.emotion_loss_weight * emotion_loss
+        
+        return (final_loss, outputs) if return_outputs else final_loss
 
 def parse_args():
     """Parse command line arguments."""
@@ -247,8 +336,8 @@ def parse_args():
     parser.add_argument(
         "--augmented_data", 
         type=str, 
-        required=True,
-        help="Path to the augmented MNLI dataset created by data_augmentation.py"
+        default="train_set.json",
+        help="Path to the augmented MNLI dataset created by data_augmentation.py (default: train_set.json)"
     )
     
     parser.add_argument(
@@ -316,6 +405,21 @@ def parse_args():
             "contrast", "average_intensity"
         ],
         help="Which emotion dimension to use for curriculum learning"
+    )
+    
+    parser.add_argument(
+        "--emotion_loss_weight",
+        type=float,
+        default=0.5,
+        help="Weight for the emotion-based loss term (0.0 to 1.0)"
+    )
+    
+    parser.add_argument(
+        "--emotion_features",
+        type=str,
+        nargs="+",
+        default=["premise_intensity", "hypothesis_intensity", "contrast"],
+        help="Emotion features to use in the loss function"
     )
     
     parser.add_argument(
@@ -388,6 +492,12 @@ def prepare_augmented_dataset(augmented_data_path, tokenizer, weighting_strategy
     logger.info("Loading validation dataset from GLUE")
     validation_dataset = load_dataset("glue", "mnli", split="validation_matched")
     
+    # Take 200 random samples from the validation dataset
+    logger.info("Selecting 200 random samples for evaluation")
+    total_samples = len(validation_dataset)
+    random_indices = np.random.choice(total_samples, size=200, replace=False)
+    validation_dataset = validation_dataset.select(random_indices)
+    
     # Process validation dataset
     validation_dataset = EmotionWeightedMNLIDataset(
         validation_dataset,
@@ -426,186 +536,6 @@ def compute_metrics(preds, labels):
     
     return metrics
 
-def train_custom(args, train_dataset, eval_dataset, model, tokenizer):
-    """
-    Custom training loop for more control and tracking of metrics.
-    
-    Args:
-        args: Command-line arguments
-        train_dataset: Training dataset
-        eval_dataset: Evaluation dataset
-        model: The model to train
-        tokenizer: Tokenizer for the model
-        
-    Returns:
-        Trained model and training history
-    """
-    # Create output directory
-    os.makedirs(args.output_dir, exist_ok=True)
-    
-    # Setup data loaders
-    train_loader = DataLoader(
-        train_dataset,
-        batch_size=args.batch_size,
-        shuffle=True,
-        num_workers=4
-    )
-    
-    eval_loader = DataLoader(
-        eval_dataset,
-        batch_size=args.batch_size,
-        shuffle=False,
-        num_workers=4
-    )
-    
-    # Set up optimizer
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=args.learning_rate,
-        weight_decay=args.weight_decay
-    )
-    
-    # Calculate number of training steps
-    num_update_steps_per_epoch = len(train_loader)
-    num_training_steps = args.epochs * num_update_steps_per_epoch
-    
-    # Set up learning rate scheduler
-    lr_scheduler = get_scheduler(
-        name="linear",
-        optimizer=optimizer,
-        num_warmup_steps=int(0.1 * num_training_steps),
-        num_training_steps=num_training_steps
-    )
-    
-    # Move model to device
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
-    
-    # Initialize training history
-    history = {
-        "train_loss": [],
-        "eval_loss": [],
-        "eval_metrics": [],
-        "learning_rates": []
-    }
-    
-    # Training loop
-    logger.info(f"Starting training for {args.epochs} epochs")
-    global_step = 0
-    
-    for epoch in range(args.epochs):
-        model.train()
-        total_train_loss = 0
-        
-        # Progress bar for training
-        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{args.epochs}")
-        
-        for step, batch in enumerate(progress_bar):
-            # Move batch to device
-            batch = {k: v.to(device) for k, v in batch.items()}
-            
-            # Forward pass
-            outputs = model(
-                input_ids=batch["input_ids"],
-                attention_mask=batch["attention_mask"],
-                labels=batch["labels"]
-            )
-            
-            # Get loss and apply sample weighting
-            loss = outputs.loss
-            if "weight" in batch:
-                per_sample_loss = F.cross_entropy(
-                    outputs.logits, batch["labels"], reduction="none"
-                )
-                loss = (per_sample_loss * batch["weight"]).mean()
-            
-            # Backward pass and optimization
-            loss.backward()
-            optimizer.step()
-            lr_scheduler.step()
-            optimizer.zero_grad()
-            
-            # Update metrics
-            total_train_loss += loss.item()
-            current_lr = lr_scheduler.get_last_lr()[0]
-            
-            # Update progress bar
-            progress_bar.set_postfix({
-                "loss": f"{loss.item():.4f}",
-                "lr": f"{current_lr:.2e}"
-            })
-            
-            # Log metrics at specified intervals
-            if global_step % args.logging_steps == 0:
-                history["train_loss"].append(loss.item())
-                history["learning_rates"].append(current_lr)
-                
-            global_step += 1
-        
-        # Compute average training loss for the epoch
-        avg_train_loss = total_train_loss / len(train_loader)
-        logger.info(f"Epoch {epoch+1} average train loss: {avg_train_loss:.4f}")
-        
-        # Evaluation
-        logger.info("Running evaluation")
-        model.eval()
-        eval_loss = 0
-        all_preds = []
-        all_labels = []
-        
-        with torch.no_grad():
-            for batch in tqdm(eval_loader, desc="Evaluating"):
-                # Filter out emotion features to avoid errors
-                emotion_keys = ["premise_intensity", "premise_valence", 
-                                "premise_arousal", "hypothesis_intensity", 
-                                "hypothesis_valence", "hypothesis_arousal", 
-                                "contrast", "weight"]
-                batch = {k: v.to(device) for k, v in batch.items() 
-                         if k not in emotion_keys}
-                
-                outputs = model(
-                    input_ids=batch["input_ids"],
-                    attention_mask=batch["attention_mask"],
-                    labels=batch["labels"]
-                )
-                
-                loss = outputs.loss
-                eval_loss += loss.item()
-                
-                logits = outputs.logits
-                preds = logits.detach().cpu().numpy()
-                labels = batch["labels"].detach().cpu().numpy()
-                
-                all_preds.append(preds)
-                all_labels.append(labels)
-        
-        # Compute average evaluation loss
-        avg_eval_loss = eval_loss / len(eval_loader)
-        
-        # Compute evaluation metrics
-        all_preds = np.vstack(all_preds)
-        all_labels = np.concatenate(all_labels)
-        metrics = compute_metrics(all_preds, all_labels)
-        
-        # Update history
-        history["eval_loss"].append(avg_eval_loss)
-        history["eval_metrics"].append(metrics)
-        
-        # Log evaluation results
-        logger.info(f"Epoch {epoch+1} evaluation - Loss: {avg_eval_loss:.4f}, Accuracy: {metrics['accuracy']:.4f}")
-        
-        # Save checkpoint
-        checkpoint_path = os.path.join(args.output_dir, f"checkpoint-epoch-{epoch+1}")
-        os.makedirs(checkpoint_path, exist_ok=True)
-        model.save_pretrained(checkpoint_path)
-        tokenizer.save_pretrained(checkpoint_path)
-        
-        # Save training history
-        with open(os.path.join(args.output_dir, "training_history.json"), "w") as f:
-            json.dump(history, f, indent=2)
-    
-    return model, history
-
 def main():
     """Main entry point for the script."""
     args = parse_args()
@@ -636,21 +566,55 @@ def main():
         num_labels=3
     )
     
+    # Hardcoded to use train_set.json
+    train_data_path = "train_set.json"
+    logger.info(f"Using hardcoded training data file: {train_data_path}")
+    
     # Prepare datasets
     train_dataset, eval_dataset = prepare_augmented_dataset(
-        args.augmented_data, 
+        train_data_path, 
         tokenizer,
         weighting_strategy=args.weighting_strategy,
         curriculum=args.curriculum,
         curriculum_key=args.curriculum_key
     )
     
+    # Configure training arguments
+    training_args = TrainingArguments(
+        output_dir=args.output_dir,
+        num_train_epochs=args.epochs,
+        per_device_train_batch_size=args.batch_size,
+        per_device_eval_batch_size=args.batch_size,
+        learning_rate=args.learning_rate,
+        weight_decay=args.weight_decay,
+        logging_dir=f"{args.output_dir}/logs",
+        logging_steps=args.logging_steps,
+        evaluation_strategy="epoch",
+        save_strategy="epoch",
+        load_best_model_at_end=True,
+        metric_for_best_model="accuracy",
+    )
+    
+    # Setup the emotion-aware trainer with our custom loss function
+    trainer = EmotionWeightedTrainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=eval_dataset,
+        tokenizer=tokenizer,
+        compute_metrics=lambda p: compute_metrics(p.predictions, p.label_ids),
+        # Emotion loss parameters
+        emotion_loss_weight=args.emotion_loss_weight,
+        emotion_features_to_use=args.emotion_features
+    )
+    
     # Train the model
-    model, history = train_custom(args, train_dataset, eval_dataset, model, tokenizer)
+    logger.info("Starting training with emotion-aware loss")
+    trainer.train()
     
     # Save the final model
     logger.info(f"Saving final model to {args.output_dir}/final_model")
-    model.save_pretrained(f"{args.output_dir}/final_model")
+    trainer.save_model(f"{args.output_dir}/final_model")
     tokenizer.save_pretrained(f"{args.output_dir}/final_model")
     
     logger.info("Training completed successfully")
