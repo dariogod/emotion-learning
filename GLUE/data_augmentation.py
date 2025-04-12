@@ -19,6 +19,7 @@ from tqdm.auto import tqdm
 from datasets import load_dataset
 import anthropic
 from typing import List, Dict, Any, Tuple, Optional
+from pydantic import BaseModel, Field
 
 # Configure logging
 logging.basicConfig(
@@ -30,6 +31,21 @@ logger = logging.getLogger(__name__)
 # Maximum retries for API calls
 MAX_RETRIES = 3
 RETRY_DELAY = 2  # seconds
+
+# Define Pydantic models for better JSON handling
+class EmotionInfo(BaseModel):
+    """Emotion information model"""
+    Emotional_Intensity: float = Field(ge=0, le=1, description="Overall strength of the emotional response, from weak (0) to strong (1)")
+    Valence: float = Field(ge=0, le=1, description="Pleasantness of the emotion, from negative (0) to positive (1)")
+    Arousal: float = Field(ge=0, le=1, description="Level of energy/activation in the emotion, from calm (0) to excited (1)")
+
+class EmotionResponse(BaseModel):
+    """Full response model with premise and hypothesis emotions"""
+    premise: EmotionInfo
+    hypothesis: EmotionInfo
+
+# Generate the JSON schema for the response
+emotion_schema = json.dumps(EmotionResponse.model_json_schema())
 
 def parse_args():
     """Parse command line arguments."""
@@ -108,18 +124,17 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
         premise = text['premise']
         hypothesis = text['hypothesis']
         
-        system_prompt = "You are an expert emotion analyst. Analyze the emotional content of text and provide numerical scores."
+        system_prompt = "You are an expert emotion analyst. Analyze the emotional content of text and provide numerical scores following the exact schema provided."
         
         user_prompt = (
             f"Analyze the emotional content in the following premise and hypothesis SEPARATELY:\n\n"
             f"Premise: {premise}\n\nHypothesis: {hypothesis}\n\n"
             f"For EACH text (premise and hypothesis), rate on a scale from 0.0 to 1.0 for each of these dimensions:\n"
-            f"1. Emotional Intensity: How strong is the emotional content?\n"
+            f"1. Emotional_Intensity: How strong is the emotional content?\n"
             f"2. Valence: How positive (1.0) or negative (0.0) is the emotional content?\n"
             f"3. Arousal: How exciting/stimulating (1.0) or calming/soothing (0.0) is the content?\n\n"
-            f"Provide your answer as a JSON object with nested objects for premise and hypothesis, each containing the three scores. Format: "
-            f"{{'premise': {{'Emotional Intensity': float, 'Valence': float, 'Arousal': float}}, "
-            f"'hypothesis': {{'Emotional Intensity': float, 'Valence': float, 'Arousal': float}}}}"
+            f"Provide your answer as a JSON object following this exact schema:\n{emotion_schema}\n\n"
+            f"Only output valid JSON, nothing else."
         )
         
         for attempt in range(MAX_RETRIES):
@@ -136,28 +151,35 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
                 
                 # Parse the JSON response
                 try:
-                    # Extract JSON from the response content
+                    # Extract text from the response content
                     content = response.content[0].text
                     
-                    # Try to find JSON in the response (Claude sometimes adds extra text)
-                    import re
-                    json_match = re.search(r'(\{.*\})', content, re.DOTALL)
-                    
-                    if json_match:
-                        json_str = json_match.group(1)
-                        scores = json.loads(json_str)
-                    else:
-                        # Fallback to trying to parse the entire response
+                    # Try to parse the JSON content
+                    try:
+                        # First try direct parsing
                         scores = json.loads(content)
+                    except json.JSONDecodeError:
+                        # If that fails, try to extract JSON from text
+                        import re
+                        json_match = re.search(r'(\{.*\})', content, re.DOTALL)
+                        
+                        if json_match:
+                            json_str = json_match.group(1)
+                            scores = json.loads(json_str)
+                        else:
+                            raise ValueError("Could not extract JSON from response")
+                    
+                    # Validate with Pydantic model
+                    scores = EmotionResponse.model_validate(scores).model_dump()
                     
                     # Calculate emotional contrast
-                    premise_intensity = scores.get("premise", {}).get("Emotional Intensity", 0.5)
-                    premise_valence = scores.get("premise", {}).get("Valence", 0.5)
-                    premise_arousal = scores.get("premise", {}).get("Arousal", 0.5)
+                    premise_intensity = scores["premise"]["Emotional_Intensity"]
+                    premise_valence = scores["premise"]["Valence"]
+                    premise_arousal = scores["premise"]["Arousal"]
                     
-                    hypo_intensity = scores.get("hypothesis", {}).get("Emotional Intensity", 0.5)
-                    hypo_valence = scores.get("hypothesis", {}).get("Valence", 0.5)
-                    hypo_arousal = scores.get("hypothesis", {}).get("Arousal", 0.5)
+                    hypo_intensity = scores["hypothesis"]["Emotional_Intensity"]
+                    hypo_valence = scores["hypothesis"]["Valence"]
+                    hypo_arousal = scores["hypothesis"]["Arousal"]
                     
                     # Calculate contrast as average of differences across all dimensions
                     intensity_diff = abs(premise_intensity - hypo_intensity)
@@ -171,18 +193,18 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
                     
                     results.append(scores)
                     break
-                except (json.JSONDecodeError, AttributeError) as e:
+                except Exception as e:
                     logger.warning(f"Failed to parse JSON response for item {i}, attempt {attempt+1}: {str(e)}")
                     if attempt == MAX_RETRIES - 1:
                         # If this is the last attempt, add default values
                         results.append({
                             "premise": {
-                                "Emotional Intensity": 0.5,
+                                "Emotional_Intensity": 0.5,
                                 "Valence": 0.5,
                                 "Arousal": 0.5
                             },
                             "hypothesis": {
-                                "Emotional Intensity": 0.5,
+                                "Emotional_Intensity": 0.5,
                                 "Valence": 0.5,
                                 "Arousal": 0.5
                             },
@@ -197,12 +219,12 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
                     # If this is the last attempt, add default values
                     results.append({
                         "premise": {
-                            "Emotional Intensity": 0.5,
+                            "Emotional_Intensity": 0.5,
                             "Valence": 0.5,
                             "Arousal": 0.5
                         },
                         "hypothesis": {
-                            "Emotional Intensity": 0.5,
+                            "Emotional_Intensity": 0.5,
                             "Valence": 0.5,
                             "Arousal": 0.5
                         },
@@ -214,7 +236,7 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
     return results
 
 def calculate_weights(emotion_scores: List[Dict[str, Any]], strategy: str = "bell_curve", 
-                      target: str = "premise", dimension: str = "Emotional Intensity") -> np.ndarray:
+                      target: str = "premise", dimension: str = "Emotional_Intensity") -> np.ndarray:
     """
     Calculate sample weights based on emotion scores using different strategies.
     
@@ -222,7 +244,7 @@ def calculate_weights(emotion_scores: List[Dict[str, Any]], strategy: str = "bel
         emotion_scores: List of dictionaries with emotion scores
         strategy: Strategy to use for weight calculation (bell_curve, linear, etc.)
         target: Which scores to use for weighting (premise, hypothesis, contrast, average)
-        dimension: Which emotion dimension to use (Emotional Intensity, Valence, Arousal)
+        dimension: Which emotion dimension to use (Emotional_Intensity, Valence, Arousal)
         
     Returns:
         Array of weights for each sample
@@ -238,7 +260,7 @@ def calculate_weights(emotion_scores: List[Dict[str, Any]], strategy: str = "bel
                          for score in emotion_scores])
     elif target == "contrast":
         # Use emotional contrast
-        if dimension != "Emotional Intensity":
+        if dimension != "Emotional_Intensity":
             logger.warning(f"Contrast doesn't have specific dimensions; using overall contrast score")
         values = np.array([score.get("contrast", 0.0) for score in emotion_scores])
     elif target == "average":
@@ -326,7 +348,7 @@ def augment_dataset(args, client):
     
     # Define weighting targets, dimensions, and strategies
     targets = ["premise", "hypothesis", "contrast", "average"]
-    dimensions = ["Emotional Intensity", "Valence", "Arousal"]
+    dimensions = ["Emotional_Intensity", "Valence", "Arousal"]
     strategies = ["bell_curve", "linear", "inverse", "uniform"]
     
     # Calculate weights for all combinations
@@ -339,7 +361,7 @@ def augment_dataset(args, client):
     for target in targets:
         for dimension in dimensions:
             # Skip dimension for contrast since it's a composite score
-            if target == "contrast" and dimension != "Emotional Intensity":
+            if target == "contrast" and dimension != "Emotional_Intensity":
                 continue
                 
             for strategy in strategies:
@@ -356,7 +378,7 @@ def augment_dataset(args, client):
                     
                     # Create key in the format target_dimension_strategy
                     # Use shortened dimension name for cleaner keys
-                    dim_short = dimension.split()[0].lower()  # intensity, valence, arousal
+                    dim_short = dimension.split("_")[0].lower()  # intensity, valence, arousal
                     key = f"{target}_{dim_short}_{strategy}"
                     sample_weights[key] = weights.tolist()
                     
@@ -380,9 +402,9 @@ def augment_dataset(args, client):
     summary = {
         "num_samples": len(train_data),
         "premise_emotional_intensity": {
-            "mean": np.mean([score.get("premise", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores]),
-            "median": np.median([score.get("premise", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores]),
-            "std": np.std([score.get("premise", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores])
+            "mean": np.mean([score.get("premise", {}).get("Emotional_Intensity", 0.5) for score in all_emotion_scores]),
+            "median": np.median([score.get("premise", {}).get("Emotional_Intensity", 0.5) for score in all_emotion_scores]),
+            "std": np.std([score.get("premise", {}).get("Emotional_Intensity", 0.5) for score in all_emotion_scores])
         },
         "premise_valence": {
             "mean": np.mean([score.get("premise", {}).get("Valence", 0.5) for score in all_emotion_scores]),
@@ -395,9 +417,9 @@ def augment_dataset(args, client):
             "std": np.std([score.get("premise", {}).get("Arousal", 0.5) for score in all_emotion_scores])
         },
         "hypothesis_emotional_intensity": {
-            "mean": np.mean([score.get("hypothesis", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores]),
-            "median": np.median([score.get("hypothesis", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores]),
-            "std": np.std([score.get("hypothesis", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores])
+            "mean": np.mean([score.get("hypothesis", {}).get("Emotional_Intensity", 0.5) for score in all_emotion_scores]),
+            "median": np.median([score.get("hypothesis", {}).get("Emotional_Intensity", 0.5) for score in all_emotion_scores]),
+            "std": np.std([score.get("hypothesis", {}).get("Emotional_Intensity", 0.5) for score in all_emotion_scores])
         },
         "hypothesis_valence": {
             "mean": np.mean([score.get("hypothesis", {}).get("Valence", 0.5) for score in all_emotion_scores]),
