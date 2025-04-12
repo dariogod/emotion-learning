@@ -5,7 +5,7 @@
 Data Augmentation Script for MNLI with Emotion Signals
 
 This script uses the Anthropic Claude API to augment MNLI dataset samples with emotional 
-intensity scores, which can then be used in emotion-aware training.
+dimensions (intensity, valence, and arousal), which can then be used in emotion-aware training.
 """
 
 import os
@@ -113,12 +113,13 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
         user_prompt = (
             f"Analyze the emotional content in the following premise and hypothesis SEPARATELY:\n\n"
             f"Premise: {premise}\n\nHypothesis: {hypothesis}\n\n"
-            f"For EACH text (premise and hypothesis), rate on a scale from 0.0 to 1.0:\n"
+            f"For EACH text (premise and hypothesis), rate on a scale from 0.0 to 1.0 for each of these dimensions:\n"
             f"1. Emotional Intensity: How strong is the emotional content?\n"
-            f"2. Valence: How positive (1.0) or negative (0.0) is the emotional content?\n\n"
-            f"Provide your answer as a JSON object with nested objects for premise and hypothesis, each containing intensity and valence scores. Format: "
-            f"{{'premise': {{'Emotional Intensity': float, 'Valence': float}}, "
-            f"'hypothesis': {{'Emotional Intensity': float, 'Valence': float}}}}"
+            f"2. Valence: How positive (1.0) or negative (0.0) is the emotional content?\n"
+            f"3. Arousal: How exciting/stimulating (1.0) or calming/soothing (0.0) is the content?\n\n"
+            f"Provide your answer as a JSON object with nested objects for premise and hypothesis, each containing the three scores. Format: "
+            f"{{'premise': {{'Emotional Intensity': float, 'Valence': float, 'Arousal': float}}, "
+            f"'hypothesis': {{'Emotional Intensity': float, 'Valence': float, 'Arousal': float}}}}"
         )
         
         for attempt in range(MAX_RETRIES):
@@ -152,13 +153,18 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
                     # Calculate emotional contrast
                     premise_intensity = scores.get("premise", {}).get("Emotional Intensity", 0.5)
                     premise_valence = scores.get("premise", {}).get("Valence", 0.5)
+                    premise_arousal = scores.get("premise", {}).get("Arousal", 0.5)
+                    
                     hypo_intensity = scores.get("hypothesis", {}).get("Emotional Intensity", 0.5)
                     hypo_valence = scores.get("hypothesis", {}).get("Valence", 0.5)
+                    hypo_arousal = scores.get("hypothesis", {}).get("Arousal", 0.5)
                     
-                    # Calculate contrast as average of differences in intensity and valence
+                    # Calculate contrast as average of differences across all dimensions
                     intensity_diff = abs(premise_intensity - hypo_intensity)
                     valence_diff = abs(premise_valence - hypo_valence)
-                    emotional_contrast = (intensity_diff + valence_diff) / 2
+                    arousal_diff = abs(premise_arousal - hypo_arousal)
+                    
+                    emotional_contrast = (intensity_diff + valence_diff + arousal_diff) / 3
                     
                     # Add derived contrast score
                     scores["contrast"] = emotional_contrast
@@ -172,11 +178,13 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
                         results.append({
                             "premise": {
                                 "Emotional Intensity": 0.5,
-                                "Valence": 0.5
+                                "Valence": 0.5,
+                                "Arousal": 0.5
                             },
                             "hypothesis": {
                                 "Emotional Intensity": 0.5,
-                                "Valence": 0.5
+                                "Valence": 0.5,
+                                "Arousal": 0.5
                             },
                             "contrast": 0.0
                         })
@@ -190,11 +198,13 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
                     results.append({
                         "premise": {
                             "Emotional Intensity": 0.5,
-                            "Valence": 0.5
+                            "Valence": 0.5,
+                            "Arousal": 0.5
                         },
                         "hypothesis": {
                             "Emotional Intensity": 0.5,
-                            "Valence": 0.5
+                            "Valence": 0.5,
+                            "Arousal": 0.5
                         },
                         "contrast": 0.0
                     })
@@ -204,7 +214,7 @@ def get_emotion_score_batch(client: anthropic.Anthropic, texts: List[Dict[str, s
     return results
 
 def calculate_weights(emotion_scores: List[Dict[str, Any]], strategy: str = "bell_curve", 
-                      target: str = "premise") -> np.ndarray:
+                      target: str = "premise", dimension: str = "Emotional Intensity") -> np.ndarray:
     """
     Calculate sample weights based on emotion scores using different strategies.
     
@@ -212,46 +222,50 @@ def calculate_weights(emotion_scores: List[Dict[str, Any]], strategy: str = "bel
         emotion_scores: List of dictionaries with emotion scores
         strategy: Strategy to use for weight calculation (bell_curve, linear, etc.)
         target: Which scores to use for weighting (premise, hypothesis, contrast, average)
+        dimension: Which emotion dimension to use (Emotional Intensity, Valence, Arousal)
         
     Returns:
         Array of weights for each sample
     """
+    # Extract target values based on dimension
     if target == "premise":
-        # Use premise intensity
-        intensities = np.array([score.get("premise", {}).get("Emotional Intensity", 0.5) 
-                              for score in emotion_scores])
+        # Use premise dimension
+        values = np.array([score.get("premise", {}).get(dimension, 0.5) 
+                         for score in emotion_scores])
     elif target == "hypothesis":
-        # Use hypothesis intensity
-        intensities = np.array([score.get("hypothesis", {}).get("Emotional Intensity", 0.5) 
-                              for score in emotion_scores])
+        # Use hypothesis dimension
+        values = np.array([score.get("hypothesis", {}).get(dimension, 0.5) 
+                         for score in emotion_scores])
     elif target == "contrast":
         # Use emotional contrast
-        intensities = np.array([score.get("contrast", 0.0) for score in emotion_scores])
+        if dimension != "Emotional Intensity":
+            logger.warning(f"Contrast doesn't have specific dimensions; using overall contrast score")
+        values = np.array([score.get("contrast", 0.0) for score in emotion_scores])
     elif target == "average":
-        # Use average of premise and hypothesis intensity
-        intensities = np.array([(score.get("premise", {}).get("Emotional Intensity", 0.5) + 
-                               score.get("hypothesis", {}).get("Emotional Intensity", 0.5)) / 2
-                              for score in emotion_scores])
+        # Use average of premise and hypothesis
+        values = np.array([(score.get("premise", {}).get(dimension, 0.5) + 
+                          score.get("hypothesis", {}).get(dimension, 0.5)) / 2
+                         for score in emotion_scores])
     else:
         raise ValueError(f"Unknown target: {target}")
     
     if strategy == "bell_curve":
-        # Bell curve weighting: prioritize samples with moderate emotional intensity
-        # Samples with intensity around 0.5 get highest weight
-        weights = 1.0 - 2.0 * np.abs(intensities - 0.5)
+        # Bell curve weighting: prioritize samples with moderate values
+        # Samples with values around 0.5 get highest weight
+        weights = 1.0 - 2.0 * np.abs(values - 0.5)
         weights = weights + 0.2  # Ensure minimum weight of 0.2
         
     elif strategy == "linear":
-        # Linear weighting: higher emotion gets higher weight
-        weights = intensities
+        # Linear weighting: higher values get higher weight
+        weights = values
         
     elif strategy == "inverse":
-        # Inverse weighting: lower emotion gets higher weight
-        weights = 1.0 - intensities
+        # Inverse weighting: lower values get higher weight
+        weights = 1.0 - values
         
     else:
         # Default: uniform weighting
-        weights = np.ones_like(intensities)
+        weights = np.ones_like(values)
     
     # Normalize weights to sum to the number of samples (to maintain overall loss scale)
     weights = weights * (len(weights) / weights.sum())
@@ -310,24 +324,44 @@ def augment_dataset(args, client):
     # Calculate sample weights using different strategies and targets
     logger.info("Calculating sample weights using different strategies")
     
-    # Define weighting targets
+    # Define weighting targets, dimensions, and strategies
     targets = ["premise", "hypothesis", "contrast", "average"]
+    dimensions = ["Emotional Intensity", "Valence", "Arousal"]
     strategies = ["bell_curve", "linear", "inverse", "uniform"]
     
     # Calculate weights for all combinations
     sample_weights = {}
-    for target in targets:
-        for strategy in strategies:
-            if strategy == "uniform":
-                weights = np.ones(len(all_emotion_scores))
-            else:
-                weights = calculate_weights(all_emotion_scores, strategy, target)
-            
-            key = f"{target}_{strategy}"
-            sample_weights[key] = weights.tolist()
     
-    # Add uniform weights
+    # First add uniform weights
     sample_weights["uniform"] = np.ones(len(all_emotion_scores)).tolist()
+    
+    # Then add other combinations
+    for target in targets:
+        for dimension in dimensions:
+            # Skip dimension for contrast since it's a composite score
+            if target == "contrast" and dimension != "Emotional Intensity":
+                continue
+                
+            for strategy in strategies:
+                if strategy == "uniform":
+                    continue  # Already added uniform weights
+                
+                try:
+                    weights = calculate_weights(
+                        all_emotion_scores, 
+                        strategy=strategy, 
+                        target=target, 
+                        dimension=dimension
+                    )
+                    
+                    # Create key in the format target_dimension_strategy
+                    # Use shortened dimension name for cleaner keys
+                    dim_short = dimension.split()[0].lower()  # intensity, valence, arousal
+                    key = f"{target}_{dim_short}_{strategy}"
+                    sample_weights[key] = weights.tolist()
+                    
+                except Exception as e:
+                    logger.warning(f"Failed to calculate weights for {target}_{dimension}_{strategy}: {str(e)}")
     
     # Create augmented dataset
     augmented_data = {
@@ -355,6 +389,11 @@ def augment_dataset(args, client):
             "median": np.median([score.get("premise", {}).get("Valence", 0.5) for score in all_emotion_scores]),
             "std": np.std([score.get("premise", {}).get("Valence", 0.5) for score in all_emotion_scores])
         },
+        "premise_arousal": {
+            "mean": np.mean([score.get("premise", {}).get("Arousal", 0.5) for score in all_emotion_scores]),
+            "median": np.median([score.get("premise", {}).get("Arousal", 0.5) for score in all_emotion_scores]),
+            "std": np.std([score.get("premise", {}).get("Arousal", 0.5) for score in all_emotion_scores])
+        },
         "hypothesis_emotional_intensity": {
             "mean": np.mean([score.get("hypothesis", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores]),
             "median": np.median([score.get("hypothesis", {}).get("Emotional Intensity", 0.5) for score in all_emotion_scores]),
@@ -364,6 +403,11 @@ def augment_dataset(args, client):
             "mean": np.mean([score.get("hypothesis", {}).get("Valence", 0.5) for score in all_emotion_scores]),
             "median": np.median([score.get("hypothesis", {}).get("Valence", 0.5) for score in all_emotion_scores]),
             "std": np.std([score.get("hypothesis", {}).get("Valence", 0.5) for score in all_emotion_scores])
+        },
+        "hypothesis_arousal": {
+            "mean": np.mean([score.get("hypothesis", {}).get("Arousal", 0.5) for score in all_emotion_scores]),
+            "median": np.median([score.get("hypothesis", {}).get("Arousal", 0.5) for score in all_emotion_scores]),
+            "std": np.std([score.get("hypothesis", {}).get("Arousal", 0.5) for score in all_emotion_scores])
         },
         "emotional_contrast": {
             "mean": np.mean([score.get("contrast", 0.0) for score in all_emotion_scores]),

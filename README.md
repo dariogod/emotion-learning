@@ -29,12 +29,13 @@ emotion-learning/
 
 ### 1. Data Augmentation
 
-We use Anthropic's Claude API to analyze the emotional content of both the premise and hypothesis separately in each MNLI pair. Each component receives:
+We use Anthropic's Claude API to analyze the emotional content of both the premise and hypothesis separately in each MNLI pair. Each component receives three emotion dimension scores:
 
 - **Emotional Intensity**: How emotionally charged the text is (0.0-1.0)
-- **Valence**: How positive or negative the emotion is (0.0-1.0)
+- **Valence**: How positive (1.0) or negative (0.0) is the emotional content 
+- **Arousal**: How exciting/stimulating (1.0) or calming/soothing (0.0) is the content
 
-Additionally, we compute an **Emotional Contrast** score that measures the emotional difference between premise and hypothesis.
+Additionally, we compute an **Emotional Contrast** score that measures the emotional difference between premise and hypothesis across all three dimensions.
 
 The `data_augmentation.py` script handles this process and produces an augmented dataset with these scores.
 
@@ -43,16 +44,21 @@ The `data_augmentation.py` script handles this process and produces an augmented
 The `emotion_finetune.py` script implements several ways to incorporate emotional signals:
 
 - **Sample Weighting**: Adjusting the importance of each training example based on its emotional content.
-  - Bell Curve: Prioritizes samples with moderate emotional intensity
-  - Linear: Higher emotion gets higher weight
-  - Inverse: Lower emotion gets higher weight
+  - Bell Curve: Prioritizes samples with moderate emotional values
+  - Linear: Higher emotion values get higher weight
+  - Inverse: Lower emotion values get higher weight
   - Uniform: Standard training (baseline)
 
 - **Multiple Emotion Targets**: You can use different emotional aspects for weighting:
-  - Premise Intensity: Focus on premise emotion
-  - Hypothesis Intensity: Focus on hypothesis emotion
+  - Premise: Focus on premise emotion
+  - Hypothesis: Focus on hypothesis emotion
   - Contrast: Focus on emotional difference between premise and hypothesis
-  - Average: Use the average intensity of both premise and hypothesis
+  - Average: Use the average of both premise and hypothesis
+
+- **Multiple Emotion Dimensions**: You can choose which dimension to use for weighting:
+  - Intensity: Focus on emotional intensity
+  - Valence: Focus on positive/negative sentiment
+  - Arousal: Focus on exciting/calming aspects
 
 - **Curriculum Learning**: Starting with emotionally simpler examples and gradually introducing more complex ones, with customizable ordering based on different emotional dimensions.
 
@@ -63,7 +69,7 @@ The `visualization.py` script generates visualizations to compare:
 - Learning curves across different emotion-aware training approaches
 - Final performance metrics
 - Convergence speed analysis
-- Dataset emotion statistics, including premise vs. hypothesis comparisons
+- Dataset emotion statistics, including premise vs. hypothesis comparisons across all three dimensions
 
 ## How to Run
 
@@ -94,44 +100,42 @@ This will create augmented data files in the `augmented_data` directory.
 ### Step 3: Train Emotion-Aware Models
 
 ```bash
-# Train with premise-based bell curve weighting
+# Train with premise intensity (bell curve weighting)
 python GLUE/emotion_finetune.py \
   --augmented_data ./augmented_data/mnli_augmented.json \
   --model_name answerdotai/ModernBERT-base \
-  --output_dir ./emotion_models/premise_bell_curve \
-  --weighting_strategy premise_bell_curve
+  --output_dir ./emotion_models/premise_intensity_bell_curve \
+  --weighting_strategy premise_intensity_bell_curve
 
-# Train with hypothesis-based linear weighting
+# Train with hypothesis valence (linear weighting)
 python GLUE/emotion_finetune.py \
   --augmented_data ./augmented_data/mnli_augmented.json \
   --model_name answerdotai/ModernBERT-base \
-  --output_dir ./emotion_models/hypothesis_linear \
-  --weighting_strategy hypothesis_linear
+  --output_dir ./emotion_models/hypothesis_valence_linear \
+  --weighting_strategy hypothesis_valence_linear
 
-# Train with contrast-based weighting
+# Train with premise arousal (linear weighting)
 python GLUE/emotion_finetune.py \
   --augmented_data ./augmented_data/mnli_augmented.json \
   --model_name answerdotai/ModernBERT-base \
-  --output_dir ./emotion_models/contrast_linear \
-  --weighting_strategy contrast_linear
+  --output_dir ./emotion_models/premise_arousal_linear \
+  --weighting_strategy premise_arousal_linear
 
-# Train with curriculum learning based on premise intensity
+# Train with contrast (inverse weighting)
 python GLUE/emotion_finetune.py \
   --augmented_data ./augmented_data/mnli_augmented.json \
   --model_name answerdotai/ModernBERT-base \
-  --output_dir ./emotion_models/curriculum_premise \
+  --output_dir ./emotion_models/contrast_inverse \
+  --weighting_strategy contrast_intensity_inverse
+
+# Train with curriculum learning based on premise arousal
+python GLUE/emotion_finetune.py \
+  --augmented_data ./augmented_data/mnli_augmented.json \
+  --model_name answerdotai/ModernBERT-base \
+  --output_dir ./emotion_models/curriculum_arousal \
   --weighting_strategy uniform \
   --curriculum \
-  --curriculum_key premise_intensity
-
-# Train with curriculum learning based on contrast
-python GLUE/emotion_finetune.py \
-  --augmented_data ./augmented_data/mnli_augmented.json \
-  --model_name answerdotai/ModernBERT-base \
-  --output_dir ./emotion_models/curriculum_contrast \
-  --weighting_strategy uniform \
-  --curriculum \
-  --curriculum_key contrast
+  --curriculum_key premise_arousal
 
 # Train baseline (no emotion weighting)
 python GLUE/emotion_finetune.py \
@@ -145,8 +149,8 @@ python GLUE/emotion_finetune.py \
 
 ```bash
 python GLUE/visualization.py \
-  --experiment_dirs ./emotion_models/premise_bell_curve ./emotion_models/hypothesis_linear ./emotion_models/contrast_linear ./emotion_models/curriculum_premise ./emotion_models/curriculum_contrast ./emotion_models/baseline \
-  --experiment_names "Premise Bell Curve" "Hypothesis Linear" "Contrast Linear" "Curriculum (Premise)" "Curriculum (Contrast)" "Baseline" \
+  --experiment_dirs ./emotion_models/premise_intensity_bell_curve ./emotion_models/hypothesis_valence_linear ./emotion_models/premise_arousal_linear ./emotion_models/contrast_inverse ./emotion_models/curriculum_arousal ./emotion_models/baseline \
+  --experiment_names "Premise Intensity (Bell)" "Hypothesis Valence (Linear)" "Premise Arousal (Linear)" "Contrast (Inverse)" "Curriculum (Arousal)" "Baseline" \
   --output_dir ./visualizations
 ```
 
@@ -174,6 +178,7 @@ Potential extensions to this project:
 4. Investigate whether specific emotional dimensions (fear, joy, etc.) have different impacts
 5. Test with different base models beyond BERT
 6. Implement the prompt-based approach mentioned in the paper (adding emotion tags to input text)
+7. Explore combinations of emotion dimensions for more nuanced weighting strategies
 
 ## License
 
