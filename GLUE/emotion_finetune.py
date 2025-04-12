@@ -65,7 +65,9 @@ class EmotionWeightedMNLIDataset(Dataset):
             max_length: Maximum sequence length for tokenization
             sort_by_emotion: Whether to sort samples by emotion score (for curriculum learning)
             emotion_key: Key for emotion score to use for sorting 
-                         (premise_intensity, hypothesis_intensity, contrast, or average_intensity)
+                         (premise_intensity, premise_valence, premise_arousal, 
+                          hypothesis_intensity, hypothesis_valence, hypothesis_arousal,
+                          contrast, average_intensity, etc.)
         """
         self.original_dataset = dataset
         self.tokenizer = tokenizer
@@ -83,23 +85,37 @@ class EmotionWeightedMNLIDataset(Dataset):
         # For curriculum learning, sort by emotion
         if sort_by_emotion and self.emotion_scores is not None:
             # Determine which scores to use based on the emotion_key
-            if emotion_key == "premise_intensity":
-                sort_values = [score.get("premise", {}).get("Emotional Intensity", 0.5) 
-                               for score in self.emotion_scores]
-            elif emotion_key == "hypothesis_intensity":
-                sort_values = [score.get("hypothesis", {}).get("Emotional Intensity", 0.5) 
-                               for score in self.emotion_scores]
+            if "_" in emotion_key:
+                # Parse keys like "premise_intensity", "hypothesis_valence", "premise_arousal"
+                parts = emotion_key.split("_")
+                if len(parts) >= 2:
+                    target = parts[0]  # premise or hypothesis
+                    dimension = parts[1].capitalize()  # Intensity, Valence, Arousal
+                    
+                    # Map dimension name to the actual key in the data
+                    dim_key = dimension
+                    if dimension == "Intensity":
+                        dim_key = "Emotional Intensity"
+                    
+                    # Get the values for sorting
+                    sort_values = [score.get(target, {}).get(dim_key, 0.5) 
+                                  for score in self.emotion_scores]
+                else:
+                    # Default fallback
+                    logger.warning(f"Could not parse emotion key: {emotion_key}, using premise intensity")
+                    sort_values = [score.get("premise", {}).get("Emotional Intensity", 0.5) 
+                                  for score in self.emotion_scores]
             elif emotion_key == "contrast":
                 sort_values = [score.get("contrast", 0.0) 
-                               for score in self.emotion_scores]
+                              for score in self.emotion_scores]
             elif emotion_key == "average_intensity":
                 sort_values = [(score.get("premise", {}).get("Emotional Intensity", 0.5) + 
-                                score.get("hypothesis", {}).get("Emotional Intensity", 0.5)) / 2
-                               for score in self.emotion_scores]
+                               score.get("hypothesis", {}).get("Emotional Intensity", 0.5)) / 2
+                              for score in self.emotion_scores]
             else:
                 logger.warning(f"Unknown emotion key: {emotion_key}, using premise intensity")
                 sort_values = [score.get("premise", {}).get("Emotional Intensity", 0.5) 
-                               for score in self.emotion_scores]
+                              for score in self.emotion_scores]
             
             # Sort by the selected emotion values
             sorted_indices = np.argsort(sort_values)
@@ -150,6 +166,10 @@ class EmotionWeightedMNLIDataset(Dataset):
                 premise_scores.get("Valence", 0.5),
                 dtype=torch.float
             )
+            item["premise_arousal"] = torch.tensor(
+                premise_scores.get("Arousal", 0.5),
+                dtype=torch.float
+            )
             
             # Add hypothesis emotion scores
             hypothesis_scores = emotion_score.get("hypothesis", {})
@@ -159,6 +179,10 @@ class EmotionWeightedMNLIDataset(Dataset):
             )
             item["hypothesis_valence"] = torch.tensor(
                 hypothesis_scores.get("Valence", 0.5),
+                dtype=torch.float
+            )
+            item["hypothesis_arousal"] = torch.tensor(
+                hypothesis_scores.get("Arousal", 0.5),
                 dtype=torch.float
             )
             
@@ -191,8 +215,10 @@ class EmotionWeightedTrainer(Trainer):
         # Extract any emotion features (not used in loss but could be used for monitoring)
         premise_intensity = inputs.pop("premise_intensity", None)
         premise_valence = inputs.pop("premise_valence", None)
+        premise_arousal = inputs.pop("premise_arousal", None)
         hypothesis_intensity = inputs.pop("hypothesis_intensity", None)
         hypothesis_valence = inputs.pop("hypothesis_valence", None)
+        hypothesis_arousal = inputs.pop("hypothesis_arousal", None)
         contrast = inputs.pop("contrast", None)
         
         # Forward pass
@@ -284,7 +310,11 @@ def parse_args():
         "--curriculum_key",
         type=str,
         default="premise_intensity",
-        choices=["premise_intensity", "hypothesis_intensity", "contrast", "average_intensity"],
+        choices=[
+            "premise_intensity", "premise_valence", "premise_arousal",
+            "hypothesis_intensity", "hypothesis_valence", "hypothesis_arousal",
+            "contrast", "average_intensity"
+        ],
         help="Which emotion dimension to use for curriculum learning"
     )
     
@@ -527,7 +557,8 @@ def train_custom(args, train_dataset, eval_dataset, model, tokenizer):
             for batch in tqdm(eval_loader, desc="Evaluating"):
                 # Filter out emotion features to avoid errors
                 emotion_keys = ["premise_intensity", "premise_valence", 
-                                "hypothesis_intensity", "hypothesis_valence", 
+                                "premise_arousal", "hypothesis_intensity", 
+                                "hypothesis_valence", "hypothesis_arousal", 
                                 "contrast", "weight"]
                 batch = {k: v.to(device) for k, v in batch.items() 
                          if k not in emotion_keys}
