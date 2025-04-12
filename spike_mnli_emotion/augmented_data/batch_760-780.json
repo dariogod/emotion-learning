@@ -1,0 +1,402 @@
+[
+    {
+        "idx": 760,
+        "premise": {
+            "text": "The Legal Services Corporation Board of Directors adopted Resolution 98-011, on November 16, 1998, providing authority to establish the Commission with the express purpose of studying the presence requirement for the representation of eligible aliens.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Resolution 98-011 focuses on the presence requirement for representations of aliens.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 761,
+        "premise": {
+            "text": "LSC requires its grantees in each state to work with each other and equal justice stakeholders to develop justice communities that best respond to clients' most compelling needs, ensure the most strategic and cost-effective use of all available resources, and maximize the opportunity for clients statewide to receive timely, effective, and appropriate legal services.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Legal services include the best lawyers in town.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 762,
+        "premise": {
+            "text": "Consequently, the motivational mechanism is not clear.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "We have great clarity on the motivational mechanism.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.8,
+                "intensity": 0.7
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 763,
+        "premise": {
+            "text": "You won't envy the men and women you see working in the fields under the blazing sun, but they're never too tired to return your wave with a smile.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "The people who labor outside are optimistic and kind.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 764,
+        "premise": {
+            "text": "The majority of eating places in Istanbul and the Aegean resorts offer the standard fare of bread, salads, kebabs, and seafood.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Very few eating places in Istanbul serve kebabs.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 765,
+        "premise": {
+            "text": "This usually does not take up as much room as the SCR reactor itself.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "This takes up a lot of space too.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 766,
+        "premise": {
+            "text": "The city also has more than a dozen specialized book shops; two of the most famous are the Bodhi Tree on Melrose which carries metaphysical and New Age titles, and Book Soup on Sunset Boulevard, which also carries international newspapers and periodicals.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Book Soup on Sunset Boulevard doesn't sell any newspapers or magazines.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 767,
+        "premise": {
+            "text": "Regardless of the timing of recording T and A data, management must have in place a system of control techniques that gives reasonable assurance that the recorded information reflects time worked, leave taken, or other absences.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "There is no need for a system of control techniques because the existing practices are always accurate.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 768,
+        "premise": {
+            "text": "Suddenly Julius came to such an abrupt halt that Tommy cannoned into him.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.3,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "Tommy wasn't watching where he was walking.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 769,
+        "premise": {
+            "text": "Real jade is extremely expensive, and you may be offered counterfeit jade, which looks exactly like the genuine article.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "People will tend to sell you fake jade, which is hard to distinguish from the real article. ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.5
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 770,
+        "premise": {
+            "text": "Well, I've always had a secret hankering to be a detective!",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.8,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "I've always had a hidden desire to solve crimes.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 771,
+        "premise": {
+            "text": "i had stuff for like Sanger Harris and you know it got up like to couple of hundred dollars and i thought well that's okay cause all they wanted was ten dollars a month right  i wasn't thinking a thing about it",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Little did I know that the ten was actually a one thousand.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.8,
+                "intensity": 0.6
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 772,
+        "premise": {
+            "text": "We're told of Estella's inner struggle--of the tug of war between the punishing cock-tease that her aunt has engineered her to be and her inherent decency--but the conflict isn't palpable in Paltrow's paltry performance.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "At the end of the movie, Estella embraces her inherent decency and does the right thing.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.6
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 773,
+        "premise": {
+            "text": "He hasn't had a new thought for 20 years.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.2,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "He has new thoughts every day.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 774,
+        "premise": {
+            "text": "Fifty km (30 miles) further south is the Temple of Edfu, the second biggest temple in Egypt, and one of the best-preserved.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The Temple of Edfu is not well preserved.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 775,
+        "premise": {
+            "text": "do they are they yeah okay they're so they're still he's still doing it then huh oh i'll have to tune in",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "They don't do it anymore I will not listen",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.6
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 776,
+        "premise": {
+            "text": "Its two cinemas present a varied program of new international and archival films.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "It's three cinemas show old films only.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 777,
+        "premise": {
+            "text": "oh i see so if you have fresh dirt they'll",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.15
+            }
+        },
+        "hypothesis": {
+            "text": "If you have fresh dirt I can see that.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 778,
+        "premise": {
+            "text": "it is comforting to me to see uh more concern about some of these things that that cost us money especially when we have dwindling uh resources such as oil that's burning out of control in in the Persian Gulf and and so forth just just every little bit does it makes me feel better it it makes me feel like well there may be something left for my children my nieces and nephews and so forth",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "It makes me feel good to see people be concerned about our nation's expenses.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 779,
+        "premise": {
+            "text": "right yeah yeah no i i agree with you there though i mean they want to choose that particular religion then that's fine with me too you know as long as they don't try and pull me in and drag me in and and i don't like the way that they do it either and and it's their mission as they do as they go door-to-door and they go out into the public and they actually have the uh teenagers serving two years like you would say like in an army and two years in going around and doing missionary type work and i don't know i just um i just don't particularly care for that at all and that that's one thing that i feel really strongly about though is uh you know people coming up to my door especially religious organizations and wanting to uh you know to try and get me to join or you know become interested in their religion because i have my own",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "I'm very interested in their religion and would like to go door-to-door with them.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "label": 2
+    }
+]
