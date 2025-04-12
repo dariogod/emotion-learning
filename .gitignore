@@ -48,3 +48,14 @@ coverage.xml
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+
+# PyTorch/ML model files
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.h5
+*.model
+*.weights
