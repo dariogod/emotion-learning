@@ -46,9 +46,9 @@ def parse_args():
     parser.add_argument(
         "--compare_mode",
         type=str,
-        choices=["emotion_vs_standard", "all"],
+        choices=["emotion_vs_standard", "all", "weight_sweep"],
         default="emotion_vs_standard",
-        help="How to compare the metrics: 'emotion_vs_standard' (group by emotion/standard) or 'all' (individual runs)"
+        help="How to compare the metrics: 'emotion_vs_standard' (group by emotion/standard), 'all' (individual runs), or 'weight_sweep' (by emotion weight)"
     )
     
     parser.add_argument(
@@ -72,14 +72,22 @@ def load_metrics_files(metrics_files: List[str] = None, metrics_dir: str = None)
         List of loaded metrics data dictionaries
     """
     metrics_data = []
+    file_paths = []
     
-    # If metrics_dir is provided, find all metrics files in that directory
+    # If metrics_dir is provided, find all metrics files recursively
     if metrics_dir and os.path.isdir(metrics_dir):
-        pattern = os.path.join(metrics_dir, "*metrics.json")
-        file_paths = glob.glob(pattern)
-        print(f"Found {len(file_paths)} metrics files in directory {metrics_dir}")
+        # Walk through all subdirectories
+        for root, dirs, files in os.walk(metrics_dir):
+            for file in files:
+                # Only load training metrics files, not final test metrics
+                if file.endswith("metrics.json") and not file.startswith("final_test"):
+                    file_path = os.path.join(root, file)
+                    file_paths.append(file_path)
+                    print(f"Found metrics file: {file_path}")
     else:
         file_paths = metrics_files if metrics_files else []
+    
+    print(f"\nAttempting to load {len(file_paths)} metrics files...")
     
     for file_path in file_paths:
         if os.path.exists(file_path):
@@ -89,7 +97,7 @@ def load_metrics_files(metrics_files: List[str] = None, metrics_dir: str = None)
                     # Add the filename to the data for reference
                     data['file_path'] = file_path
                     metrics_data.append(data)
-                    print(f"Loaded metrics from {file_path}")
+                    print(f"Successfully loaded: {file_path}")
             except Exception as e:
                 print(f"Error loading metrics from {file_path}: {e}")
         else:
@@ -97,6 +105,8 @@ def load_metrics_files(metrics_files: List[str] = None, metrics_dir: str = None)
     
     if not metrics_data:
         print("No metrics files were loaded. Please check your file paths.")
+    else:
+        print(f"\nSuccessfully loaded {len(metrics_data)} metrics files")
     
     return metrics_data
 
@@ -125,6 +135,45 @@ def apply_smoothing(values: List[float], window_size: int) -> List[float]:
     
     return smoothed
 
+def extract_emotion_weight(file_path):
+    """
+    Extract the emotion weight from the filename or metadata.
+    
+    Args:
+        file_path: Path to the metrics file
+        
+    Returns:
+        Emotion weight value as float, or None if not found
+    """
+    # Try to extract from the directory name first (e.g., "emotion_weight_0_5")
+    dir_name = os.path.basename(os.path.dirname(file_path))
+    if "weight" in dir_name:
+        try:
+            # Extract number after "weight_", replacing underscore with dot
+            weight_str = dir_name.split("weight_")[1]
+            # Handle both underscore and dot formats
+            if "_" in weight_str:
+                weight_str = weight_str.replace("_", ".")
+            return float(weight_str)
+        except (IndexError, ValueError):
+            pass
+    
+    # If not in directory name, try to extract from the file content
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+            # Look for emotion_loss_weight in run_info
+            if "run_info" in data and "emotion_loss_weight" in data["run_info"]:
+                return float(data["run_info"]["emotion_loss_weight"])
+    except Exception:
+        pass
+    
+    # Default weight for emotion runs if not found
+    if "emotion" in os.path.basename(file_path) and "standard" not in os.path.basename(file_path):
+        return 0.5
+    
+    return None
+
 def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str, 
                             compare_mode: str = "emotion_vs_standard", smooth: int = 0):
     """
@@ -133,7 +182,7 @@ def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str
     Args:
         metrics_data: List of loaded metrics data
         output_dir: Directory to save the plot
-        compare_mode: How to compare the metrics ('emotion_vs_standard' or 'all')
+        compare_mode: How to compare the metrics ('emotion_vs_standard', 'all', or 'weight_sweep')
         smooth: Window size for moving average smoothing
     """
     os.makedirs(output_dir, exist_ok=True)
@@ -194,6 +243,75 @@ def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str
                 epochs = list(range(1, min_length + 1))
                 plt.plot(epochs, avg_standard, 'b-', linewidth=3, label="Standard Average")
     
+    elif compare_mode == "weight_sweep":
+        # Group runs by emotion weight
+        weight_groups = {}
+        standard_runs = []
+        
+        for data in metrics_data:
+            weight = extract_emotion_weight(data['file_path'])
+            
+            if weight is None:
+                # This is a standard run
+                standard_runs.append(data)
+            else:
+                # Add to the appropriate weight group
+                if weight not in weight_groups:
+                    weight_groups[weight] = []
+                weight_groups[weight].append(data)
+        
+        # Plot standard runs (for comparison)
+        standard_accuracies = []
+        for run in standard_runs:
+            epochs = [m.get('epoch', i+1) for i, m in enumerate(run['metrics'])]
+            accuracies = [m.get('eval_accuracy', 0) for m in run['metrics']]
+            
+            if smooth > 0:
+                accuracies = apply_smoothing(accuracies, smooth)
+            
+            plt.plot(epochs, accuracies, 'k-', alpha=0.3)
+            standard_accuracies.append(accuracies)
+        
+        # Plot average of standard runs
+        if standard_accuracies:
+            min_length = min(len(acc) for acc in standard_accuracies)
+            aligned_accuracies = [acc[:min_length] for acc in standard_accuracies]
+            
+            if aligned_accuracies:
+                avg_standard = np.mean(aligned_accuracies, axis=0)
+                epochs = list(range(1, min_length + 1))
+                plt.plot(epochs, avg_standard, 'k-', linewidth=3, label="Standard (no emotion)")
+        
+        # Plot different emotion weights with a color gradient
+        weights = sorted(weight_groups.keys())
+        cmap = plt.cm.viridis  # Color map
+        
+        for i, weight in enumerate(weights):
+            runs = weight_groups[weight]
+            color = cmap(i / max(1, len(weights) - 1))  # Color from the gradient
+            
+            weight_accuracies = []
+            for run in runs:
+                epochs = [m.get('epoch', i+1) for i, m in enumerate(run['metrics'])]
+                accuracies = [m.get('eval_accuracy', 0) for m in run['metrics']]
+                
+                if smooth > 0:
+                    accuracies = apply_smoothing(accuracies, smooth)
+                
+                plt.plot(epochs, accuracies, '-', color=color, alpha=0.3)
+                weight_accuracies.append(accuracies)
+            
+            # Plot average for this weight if there are multiple runs
+            if len(weight_accuracies) > 0:
+                min_length = min(len(acc) for acc in weight_accuracies)
+                aligned_accuracies = [acc[:min_length] for acc in weight_accuracies]
+                
+                if aligned_accuracies:
+                    avg_accuracy = np.mean(aligned_accuracies, axis=0)
+                    epochs = list(range(1, min_length + 1))
+                    plt.plot(epochs, avg_accuracy, '-', color=color, linewidth=3, 
+                             label=f"Emotion Weight {weight:.1f}")
+    
     else:  # compare_mode == "all"
         # Plot each run individually
         for data in metrics_data:
@@ -231,7 +349,7 @@ def plot_f1_comparison(metrics_data: List[Dict[str, Any]], output_dir: str,
     Args:
         metrics_data: List of loaded metrics data
         output_dir: Directory to save the plot
-        compare_mode: How to compare the metrics ('emotion_vs_standard' or 'all')
+        compare_mode: How to compare the metrics ('emotion_vs_standard', 'all', or 'weight_sweep')
         smooth: Window size for moving average smoothing
     """
     os.makedirs(output_dir, exist_ok=True)
@@ -289,6 +407,75 @@ def plot_f1_comparison(metrics_data: List[Dict[str, Any]], output_dir: str,
                 avg_standard = np.mean(aligned_f1s, axis=0)
                 epochs = list(range(1, min_length + 1))
                 plt.plot(epochs, avg_standard, 'b-', linewidth=3, label="Standard Average")
+    
+    elif compare_mode == "weight_sweep":
+        # Group runs by emotion weight
+        weight_groups = {}
+        standard_runs = []
+        
+        for data in metrics_data:
+            weight = extract_emotion_weight(data['file_path'])
+            
+            if weight is None:
+                # This is a standard run
+                standard_runs.append(data)
+            else:
+                # Add to the appropriate weight group
+                if weight not in weight_groups:
+                    weight_groups[weight] = []
+                weight_groups[weight].append(data)
+        
+        # Plot standard runs (for comparison)
+        standard_f1s = []
+        for run in standard_runs:
+            epochs = [m.get('epoch', i+1) for i, m in enumerate(run['metrics'])]
+            f1_scores = [m.get('eval_f1_macro', 0) for m in run['metrics']]
+            
+            if smooth > 0:
+                f1_scores = apply_smoothing(f1_scores, smooth)
+            
+            plt.plot(epochs, f1_scores, 'k-', alpha=0.3)
+            standard_f1s.append(f1_scores)
+        
+        # Plot average of standard runs
+        if standard_f1s:
+            min_length = min(len(f1) for f1 in standard_f1s)
+            aligned_f1s = [f1[:min_length] for f1 in standard_f1s]
+            
+            if aligned_f1s:
+                avg_standard = np.mean(aligned_f1s, axis=0)
+                epochs = list(range(1, min_length + 1))
+                plt.plot(epochs, avg_standard, 'k-', linewidth=3, label="Standard (no emotion)")
+        
+        # Plot different emotion weights with a color gradient
+        weights = sorted(weight_groups.keys())
+        cmap = plt.cm.viridis  # Color map
+        
+        for i, weight in enumerate(weights):
+            runs = weight_groups[weight]
+            color = cmap(i / max(1, len(weights) - 1))  # Color from the gradient
+            
+            weight_f1s = []
+            for run in runs:
+                epochs = [m.get('epoch', i+1) for i, m in enumerate(run['metrics'])]
+                f1_scores = [m.get('eval_f1_macro', 0) for m in run['metrics']]
+                
+                if smooth > 0:
+                    f1_scores = apply_smoothing(f1_scores, smooth)
+                
+                plt.plot(epochs, f1_scores, '-', color=color, alpha=0.3)
+                weight_f1s.append(f1_scores)
+            
+            # Plot average for this weight if there are multiple runs
+            if len(weight_f1s) > 0:
+                min_length = min(len(f1) for f1 in weight_f1s)
+                aligned_f1s = [f1[:min_length] for f1 in weight_f1s]
+                
+                if aligned_f1s:
+                    avg_f1 = np.mean(aligned_f1s, axis=0)
+                    epochs = list(range(1, min_length + 1))
+                    plt.plot(epochs, avg_f1, '-', color=color, linewidth=3, 
+                             label=f"Emotion Weight {weight:.1f}")
     
     else:  # compare_mode == "all"
         # Plot each run individually

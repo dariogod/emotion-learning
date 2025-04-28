@@ -256,16 +256,18 @@ class EmotionWeightedMNLIDataset(Dataset):
 class EmotionWeightedTrainer(Trainer):
     """Custom trainer that incorporates emotion features into the loss function."""
     
-    def __init__(self, *args, emotion_loss_weight=0.5, emotion_features_to_use=None, **kwargs):
+    def __init__(self, *args, emotion_loss_weight=0.5, emotion_features_to_use=None, debug_loss=False, **kwargs):
         """
         Initialize the emotion-weighted trainer.
         
         Args:
             emotion_loss_weight: Weight for the emotion-based loss term (0.0 to 1.0)
             emotion_features_to_use: List of emotion features to incorporate in loss
+            debug_loss: Whether to log loss statistics for debugging
         """
         super().__init__(*args, **kwargs)
         self.emotion_loss_weight = emotion_loss_weight
+        self.debug_loss = debug_loss
         
         # Default emotion features to use if not specified
         self.emotion_features = emotion_features_to_use or [
@@ -423,6 +425,28 @@ class EmotionWeightedTrainer(Trainer):
                 
                 emotion_loss += contrast_loss.mean()
         
+        # Normalize the emotion loss to be on a similar scale as the standard loss
+        if emotion_loss > 0:
+            # Get statistics for both losses to normalize them
+            with torch.no_grad():
+                # Store original values for logging purposes
+                original_weighted_loss = weighted_loss.item()
+                original_emotion_loss = emotion_loss.item()
+                
+                # Calculate ratio between standard and emotion loss
+                loss_ratio = weighted_loss / (emotion_loss + 1e-10)  # avoid division by zero
+                
+                # Apply normalization to emotion loss only if significantly different scales
+                if loss_ratio > 5.0 or loss_ratio < 0.2:
+                    # Scale emotion loss to be roughly the same magnitude as standard loss
+                    emotion_loss = emotion_loss * loss_ratio
+                    
+                    # Log the normalization for debugging
+                    if self.debug_loss or (hasattr(self, 'state') and self.state.global_step % 100 == 0):
+                        logger.info(f"Loss normalization applied - Standard: {original_weighted_loss:.4f}, "
+                                  f"Emotion: {original_emotion_loss:.4f}, Ratio: {loss_ratio:.4f}, "
+                                  f"Normalized emotion: {emotion_loss.item():.4f}")
+        
         # Combine the standard loss with the emotion-based loss
         final_loss = (1 - self.emotion_loss_weight) * weighted_loss
         if emotion_loss > 0:
@@ -447,7 +471,7 @@ class MetricsCallback(TrainerCallback):
                 **metrics
             })
 
-def save_metrics(metrics_list, output_dir, emotion_used=False):
+def save_metrics(metrics_list, output_dir, emotion_used=False, emotion_loss_weight=0.0):
     """
     Save metrics to a JSON file for later visualization.
     
@@ -455,6 +479,7 @@ def save_metrics(metrics_list, output_dir, emotion_used=False):
         metrics_list: List of metrics dictionaries
         output_dir: Directory to save the metrics file
         emotion_used: Whether emotion features were used in training
+        emotion_loss_weight: Weight used for emotion components in the loss function
     """
     if not metrics_list:
         logger.warning("No metrics available to save")
@@ -464,6 +489,7 @@ def save_metrics(metrics_list, output_dir, emotion_used=False):
     run_data = {
         "run_info": {
             "emotion_used": emotion_used,
+            "emotion_loss_weight": emotion_loss_weight if emotion_used else 0.0,
             "timestamp": logging.Formatter().converter(),  # Current time
             "num_epochs": len(metrics_list)
         },
@@ -472,6 +498,9 @@ def save_metrics(metrics_list, output_dir, emotion_used=False):
     
     # Define filename
     prefix = "emotion_" if emotion_used else "standard_"
+    if emotion_used and emotion_loss_weight != 0.5:
+        # Include weight in filename if not the default 0.5
+        prefix = f"emotion_weight_{emotion_loss_weight:.1f}_"
     metrics_filename = os.path.join(output_dir, f"{prefix}metrics.json")
     
     # Save to file
@@ -595,6 +624,12 @@ def parse_args():
         type=int, 
         default=42,
         help="Random seed"
+    )
+    
+    parser.add_argument(
+        "--debug_loss",
+        action="store_true",
+        help="Enable detailed loss debugging output"
     )
     
     return parser.parse_args()
@@ -1062,18 +1097,20 @@ def main():
         eval_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
+        save_total_limit=1,  # Only keep the best checkpoint
         metric_for_best_model="accuracy",
+        greater_is_better=True,  # Higher accuracy is better
         seed=args.seed,
         data_seed=args.seed,
         # Force deterministic behavior
         dataloader_drop_last=False,
-        dataloader_num_workers=0,  # Use main process for data loading
-        dataloader_pin_memory=False,  # Disable pin memory which can introduce randomness
-        group_by_length=False,  # Don't group sequences by length (can change batch composition)
-        fp16=False,  # Disable mixed precision which can be non-deterministic
-        label_smoothing_factor=0.0,  # Don't use label smoothing
-        optim="adamw_torch",  # Use PyTorch's AdamW implementation
-        report_to="none",  # Don't report to any tracking system
+        dataloader_num_workers=0,
+        dataloader_pin_memory=False,
+        group_by_length=False,
+        fp16=False,
+        label_smoothing_factor=0.0,
+        optim="adamw_torch",
+        report_to="none"
     )
     
     # Create metrics callback to track performance per epoch
@@ -1092,6 +1129,7 @@ def main():
             # Emotion loss parameters
             emotion_loss_weight=args.emotion_loss_weight,
             emotion_features_to_use=args.emotion_features,
+            debug_loss=args.debug_loss,
             callbacks=[metrics_callback]
         )
     else:
@@ -1138,7 +1176,12 @@ def main():
     
     # Save the training metrics to file
     logger.info("Saving training metrics to file...")
-    save_metrics(metrics_callback.metrics_per_epoch, args.output_dir, emotion_used=args.use_emotion)
+    save_metrics(
+        metrics_callback.metrics_per_epoch, 
+        args.output_dir, 
+        emotion_used=args.use_emotion,
+        emotion_loss_weight=args.emotion_loss_weight if args.use_emotion else 0.0
+    )
     
     logger.info("Training and evaluation completed successfully")
 
