@@ -20,9 +20,10 @@ class BertWithEmotion(torch.nn.Module):
     This model wraps a base BERT model and modifies the loss calculation to account
     for emotion intensity values.
     """
-    def __init__(self, base_model: BertForSequenceClassification):
+    def __init__(self, base_model: BertForSequenceClassification, intensity_offset: float = 0.0):
         super().__init__()
         self.bert = base_model
+        self.intensity_offset = intensity_offset
         
     def forward(
         self, 
@@ -55,13 +56,18 @@ class BertWithEmotion(torch.nn.Module):
             if intensity is None:
                 raise ValueError("Intensity must be provided when labels are provided")
             
+            # Apply intensity offset
+            adjusted_intensity = intensity + self.intensity_offset # has average at 0.5
+
+            intensity_around_1 = adjusted_intensity * 2 # has average at 1
+            
             # Calculate loss manually
             logits = outputs.logits
             loss_fct = torch.nn.CrossEntropyLoss(reduction='none')
             loss = loss_fct(logits.view(-1, self.bert.config.num_labels), labels.view(-1))
             
             # Apply intensity weighting
-            weighted_loss = (loss * intensity).mean()
+            weighted_loss = (loss * intensity_around_1).mean() # weighted loss will still have average at 1
             outputs.loss = weighted_loss
             
         return outputs
@@ -165,11 +171,12 @@ def load_datasets(train_file: str, test_file: str) -> Tuple[List[Dict], List[Dic
     return train_data, test_data
 
 
-def create_model(include_emotion: bool) -> torch.nn.Module:
+def create_model(include_emotion: bool, intensity_offset: float = 0.0) -> torch.nn.Module:
     """Create and configure the model based on whether emotion should be included.
     
     Args:
         include_emotion: Whether to use emotion intensity for weighting loss
+        intensity_offset: Offset to apply to emotion intensities
         
     Returns:
         Configured model
@@ -177,7 +184,7 @@ def create_model(include_emotion: bool) -> torch.nn.Module:
     base_model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=3)
     
     if include_emotion:
-        return BertWithEmotion(base_model)
+        return BertWithEmotion(base_model, intensity_offset=intensity_offset)
     else:
         return base_model
 
@@ -191,7 +198,7 @@ def create_training_args(include_emotion: bool) -> TrainingArguments:
     Returns:
         Configured TrainingArguments
     """
-    output_dir = "outputs/bert-with-emotion_2" if include_emotion else "outputs/bert-without-emotion_2"
+    output_dir = "outputs/bert-with-emotion_3" if include_emotion else "outputs/bert-without-emotion_3"
     
     return TrainingArguments(
         output_dir=output_dir,
@@ -221,12 +228,29 @@ def main():
 
     # Initialize tokenizer and model
     tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-    model = create_model(args.include_emotion)
+    
+    # Calculate intensity offset if using emotion
+    intensity_offset = 0.0
+    if args.include_emotion:
+        intensities = []
+        for i in range(len(train_data)):
+            item = train_data[i]
+            prem_intensity = item['premise']['emotion_info']['intensity']
+            hyp_intensity = item['hypothesis']['emotion_info']['intensity']
+            avg_intensity = (prem_intensity + hyp_intensity) / 2
+            intensities.append(avg_intensity)
+        
+        if intensities:
+            mean = sum(intensities)/len(intensities)
+            intensity_offset = 0.5 - mean
+            print(f"\nUsing intensity offset: {intensity_offset:.3f}")
+    
+    model = create_model(args.include_emotion, intensity_offset=intensity_offset)
 
     # Create datasets
     train_dataset = EmotionMNLI(train_data, tokenizer, include_emotion=args.include_emotion)
     eval_dataset = EmotionMNLI(test_data, tokenizer, include_emotion=args.include_emotion)
-    
+
     # Configure training
     training_args = create_training_args(args.include_emotion)
 
