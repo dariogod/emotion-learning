@@ -1,0 +1,4002 @@
+[
+    {
+        "idx": 930,
+        "premise": {
+            "text": "boilermaker labor per year.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "boilermaker labor per week.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 736,
+        "premise": {
+            "text": "What about meals? inquired the practical Tommy.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The impractical Tommy inquired after meals.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 739,
+        "premise": {
+            "text": "Interest on Treasury securities held by revolving funds.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "Treasury securities interest held by revolving funds.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 3,
+        "premise": {
+            "text": "How do you know? All this is their information again.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "This information belongs to them.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 908,
+        "premise": {
+            "text": "The point of David Frum's argument in the Gay Marriage dialogue seems to boil down to Look at how severely and for the worse marriage has changed in the last 30 years.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "The point of David Frum's argument in the Gay Marriage dialogue seems to boil down to Look at how severely and for the worse marriage has changed in the last 30 years.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 161,
+        "premise": {
+            "text": "It will be a pleasure dressing Jane.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Dressing Jane will be enjoyable.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 445,
+        "premise": {
+            "text": "um-hum yeah it's kind of it's kind of strange here the way things go uh here if you have an accident and no one's injured the police won't even show up",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The police don't show up if nobody is injured.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 931,
+        "premise": {
+            "text": "Today it houses a small museum?\u00ad.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "It contains a small museum.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 998,
+        "premise": {
+            "text": "5 million Americans living in households with an income below the poverty level.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "5 millun Americans make too much money",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 955,
+        "premise": {
+            "text": "oh really huh do you do they um have a policy where they counsel people if they come back positive or do they fire them right away or",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "I have heard that they fire the people who come in positive.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 656,
+        "premise": {
+            "text": "Because companies know they have to deliver high-quality products quickly and affordably, they limit the challenge for their program managers and provide strong incentives to capture design and manufacturing knowledge early in the process.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Companies know that they have to deliver the best quality products quickly.  ",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 787,
+        "premise": {
+            "text": "The Liberal Humanitarians (a k a Red-Tailed Hawks)",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Conservative humanitarians aka red tailed hawks. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 899,
+        "premise": {
+            "text": "Dutch World, where all sorts of fictional characters created by Edmund Morris come out to play with children of all ages!",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.9,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "Edmund Morris created a world called Dutch World, a place where made up characters can play with all children.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 768,
+        "premise": {
+            "text": "Suddenly Julius came to such an abrupt halt that Tommy cannoned into him.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.3,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "Tommy wasn't watching where he was walking.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 936,
+        "premise": {
+            "text": "was this uh done not by TI people was it",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "It wasn't done by TI people.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 698,
+        "premise": {
+            "text": "The AIB delivers real-time information in the banner.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The banner does not include information from AIB.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 117,
+        "premise": {
+            "text": "Turned out, I wasn't completely wrong.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "I was 100 percent wrong. ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 738,
+        "premise": {
+            "text": "Only the squeamish will object to the giant toads and harmless little white cave-racer snakes.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The little white cave-racer snakes are harmful.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 830,
+        "premise": {
+            "text": "RESEARCH AND DEVELOPMENT ANNUAL STEWARDSHIP INFORMATION For the Fiscal Year Ended September",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": " RESEARCH AND DEVELOPMENT ANNUAL STEWARDSHIP INFORMATION For the Fiscal Year Ended September every year since 1912.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 11,
+        "premise": {
+            "text": "Fun for adults and children.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.9,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Fun for only children.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 566,
+        "premise": {
+            "text": "Before 1980, federal law prohibited interest to be generated on checking accounts maintained by federally insured banks.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Federal Law prohibited  interest to be generated on checking accounts, but now it's common practice.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 257,
+        "premise": {
+            "text": "Currently OASI and DI make payments to that Account, and HI receives payment.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "The Account is the easiest way to keep track of payments made by OASI and DI on an annual basis.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 541,
+        "premise": {
+            "text": "It assumes for cost-of-service areas (where most of power sales are likely to occur) that allowance allocations will not alter pricing of electricity.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "Allowance allocations will definitely not alter the pricing of electricity in cost-of-service areas.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.45,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 479,
+        "premise": {
+            "text": "yeah actually when we were up north um but some family things changed so we ended up coming back down here and all that because it helped my husband's work but um we really would like to but we don't know if we're going to do it unless we stay here you know it",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "We are certain of what we are going to do if we stay here. ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.5
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 963,
+        "premise": {
+            "text": "'I do hope you will come around to seeing things my way.'",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "There was a subtle threat in her voice as she said 'I believe you will come around to seeing things my way.'",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.5
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 390,
+        "premise": {
+            "text": "right i think we'd have the same type of problem say with Mexico uh Canada on the other hand uh English is one of their national languages they have",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "We probably have the same issues as Mexico and Canada with regards to the use of the English language.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 394,
+        "premise": {
+            "text": "These laws emphasize involving senior executives in information management decisions, appointing senior-level chief information officers, and using performance measures to assess the contribution of technology in achieving mission results.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "There are laws that involve how senior executives make information management decisions in public companies.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 65,
+        "premise": {
+            "text": "The man on the ground thinks for a moment and yells back, You must work in management.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "There was no one on the ground, man or woman.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 610,
+        "premise": {
+            "text": "White nodded.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "White shook his head no.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 956,
+        "premise": {
+            "text": "The Chicago Museum of Contemporary Art just hired its new head away from Disney.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The new head of the Chicago Museum of Contemporary Art was just hired away from Disney.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 696,
+        "premise": {
+            "text": "And yet...they looked at me with awe.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.7,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Every single one of them was blind and could not see me standing there. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 811,
+        "premise": {
+            "text": "and so um yeah uh yeah i guess i usually do i like to cook um heavy sauces and um",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "I generally like to prepare heavy sauces.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 958,
+        "premise": {
+            "text": "The Shore comprises a quayside and several cobbled lanes with restaurants where you can have a pleasant lunch.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.7,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "If you're looking for something to eat, sadly, The Shore doesn't have any restaurants.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 642,
+        "premise": {
+            "text": "Buy soon or you may miss the chance.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.4,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Don't buy, you won't miss it. ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 156,
+        "premise": {
+            "text": "Right on the waterfront; offers a more formal atmosphere and a great place to catch a sunset.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.8,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "It has a terrible view of the sunset.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 112,
+        "premise": {
+            "text": "'Less loud.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Please be quiet.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 48,
+        "premise": {
+            "text": "She smiled back.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.8,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "She was so happy she couldn't stop smiling.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.9,
+                "intensity": 0.8
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 773,
+        "premise": {
+            "text": "He hasn't had a new thought for 20 years.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.2,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "He has new thoughts every day.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 93,
+        "premise": {
+            "text": "The fourth-century Roman emperor Gratianus was an early visitor, followed much later by such luminaries as the Romantic poet Alphonse de Lamartine, Queen Victoria, Saint-Sa?\u00abns, and Rachmaninov.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Gratianus was a Roman empoeror.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 505,
+        "premise": {
+            "text": "um i don't know i you know i heard a very interesting and maybe it's just the TV show or movie i was watching they were going through a trial and i think it was like on one of the the documentary TV shows where they ask for the the verdict by the jury",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "It's interesting, I heard it while watching the TV.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 521,
+        "premise": {
+            "text": "Insofar as the best Japanese corporations are not the global hegemons we once thought they would be, it may be because everyone else has learned from them, which is of course exactly how competitive markets are supposed to work.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "Japanese corporations were global leaders in the 20th century.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 141,
+        "premise": {
+            "text": "Have you any tips to give us before we clear out?\"",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Anything we should know?",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 881,
+        "premise": {
+            "text": "I just sort of needed it.\"",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "I didn't need it, but it looked good so I took it.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 925,
+        "premise": {
+            "text": "work and our congressionally driven examinations of how well agencies are pursuing",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Congress sometimes wants the progress of agencies examined by us.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 408,
+        "premise": {
+            "text": "There's a pile of money called the Social Security Trust Fund.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The Social Security Trust Fund is made up of money. ",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 597,
+        "premise": {
+            "text": "Julius, said Tuppence firmly, \"stop walking up and down.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.4,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Keep walking up and down Julius!",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.6,
+                "intensity": 0.6
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 438,
+        "premise": {
+            "text": "Most organized tours generally include a night at a gazino as part of the package; otherwise you can book a table through your hotel or through a travel agent.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "No tours include a gazino night, you can't book one. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 598,
+        "premise": {
+            "text": "Gaaaaandhi, gone gone gone.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Gandhi is next to me.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 764,
+        "premise": {
+            "text": "The majority of eating places in Istanbul and the Aegean resorts offer the standard fare of bread, salads, kebabs, and seafood.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Very few eating places in Istanbul serve kebabs.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 269,
+        "premise": {
+            "text": "Four sikhara domes rise above the entrance-porch in addition the mandapa hall for worshippers; a larger hall for dancing-girls; and the inner sanctuary, surrounded by an ambulatory for walking around the image of the deity.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Visitors are not permitted to walk around the image of the deity, but must sit quietly in front of it.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 551,
+        "premise": {
+            "text": "However, WTP is generally considered to be a more readily measurable and conservative measure of benefits.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "WTP is considered to be a wildly inaccurate way to measure benefits.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.7
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 974,
+        "premise": {
+            "text": "We strongly disagree with the Vice President's objections to our audit and access authority.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.8
+            }
+        },
+        "hypothesis": {
+            "text": "The Vice President gave the go-ahead to our audit authority.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 762,
+        "premise": {
+            "text": "Consequently, the motivational mechanism is not clear.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "We have great clarity on the motivational mechanism.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.8,
+                "intensity": 0.7
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 252,
+        "premise": {
+            "text": "Traditionally a poor island, the native population has happily embraced the new seasonal lifestyle that has brought them proserity, and the old ways have almost completely disappeared.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The old ways of the native population has almost completely faded away.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 992,
+        "premise": {
+            "text": "From a population of 20,000 it has grown into a metropolis of 2.5 million, with tightly clustered skyscrapers and some of China's highest groseng industries.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Its population has increased by over two million.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 271,
+        "premise": {
+            "text": "oh was that good i heard oh okay",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Yes, I heard that was really good.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 146,
+        "premise": {
+            "text": "'Uh, hi guys,' Daniel said meekly.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Daniel greeted everyone even though he was shy.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 469,
+        "premise": {
+            "text": "right yeah i i spend a lot of time down in Charlotte uh and on their just the the regular TV not cable you can pick up four PB or three PBS channels",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "You can get all sorts of cable channel access in Charlotte.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 658,
+        "premise": {
+            "text": "Hindu ethics say that the path to salvation has three  righteousness, prosperity honestly achieved, and, not least, pleasure.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.8,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The way to achieve prosperity honestly is written in Hindu texts.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.7,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 405,
+        "premise": {
+            "text": "At the sight of Tommy, Julius's eyes seemed as though they would pop out of his head.",
+            "emotion_info": {
+                "arousal": 0.9,
+                "valence": 0.6,
+                "intensity": 0.8
+            }
+        },
+        "hypothesis": {
+            "text": "Julius turned and walked away as soon as he saw Tommy walk through the door.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 511,
+        "premise": {
+            "text": "You and Tuppence have been sticking together like Siamese twins.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "You and Tuppence have barely seen each other.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 671,
+        "premise": {
+            "text": "yeah well about that same time branches were falling off ev erywhere and we were actually in a state of emergency for two weeks",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.8
+            }
+        },
+        "hypothesis": {
+            "text": "Branches that have fallen littered the driveways and made it a challenge to commute.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 217,
+        "premise": {
+            "text": "And while we allow people to give a kidney to their child, we do not allow them to donate their heart.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "You can't always donate organs to your child. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 322,
+        "premise": {
+            "text": "Acidic deposition or acid rain occurs when SO2 and NOx in the atmosphere react with water, oxygen, and oxidants to form acidic compounds.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "Water and nitrogen in the atmosphere cause the acid rain.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 735,
+        "premise": {
+            "text": "Other publications can be cavalier without worrying about squashing an author's budding career.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Some publications can be rather cavalier without fear.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.4,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 580,
+        "premise": {
+            "text": "What's completely intolerable is to be accurately quoted and seen--even by yourself--to be no better than you actually are.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.8
+            }
+        },
+        "hypothesis": {
+            "text": "What's completely intolerable is to be accurately quoted and still come off badly.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.8
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 216,
+        "premise": {
+            "text": "But you will find fishermen, many of whom are direct descendants of some 600 Genoese mercenaries King Charles III rescued from captivity on Tunisia's Tabarka Island, hence the name.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "Tabarka Island is part of Turkey.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 67,
+        "premise": {
+            "text": "The economy could be still better.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The economy has never been better.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.9,
+                "intensity": 0.8
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 274,
+        "premise": {
+            "text": "i know i am um i don't know anybody in their right mind that says that that i'm doing it because i want to i",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "I know there are people who think I'm doing it because I desire to.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 410,
+        "premise": {
+            "text": "If Moynihan has anything to do with it, Al Gore will not get Bill Clinton's.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Moynihan most likely has nothing to do with it.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 323,
+        "premise": {
+            "text": "Pointe Pitre's cathedral, the Basilique Saint-Pierre et Saint-Paul, features unusual metal columns and balconies.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The unusual polystyrene columns and balconies of the Basilique Saint-Pierre et Saint-Paul can be found in Pointe Pitre.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 824,
+        "premise": {
+            "text": "The Kal pushed Ca'daan aside with one powerful hand.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Ca'daan was pushed aside and knocked to the ground by the Kal's powerful hand.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 982,
+        "premise": {
+            "text": "A narrow cobbled trail of 587 steps leads from the town to the small port below, now the domain of a fleet of donkeys that wait to carry cruise ship passengers into town.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "A fleet of donkeys ferries passengers from the town to the port.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 841,
+        "premise": {
+            "text": "Rupert Murdoch is rumored to be interested in buying it and turning it into a West Coast version of the New York Post . A circulation-hungry Willes vs. the rapacious  That's just the kind of fight the American newspaper industry needs.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.4,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "It is rumored that Rupert Murdoch is interested in buying it and turning it into a West Coast version of the New York Post.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.45,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 234,
+        "premise": {
+            "text": "After its early failure, Hubble now provides vital clues to the universe.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.65
+            }
+        },
+        "hypothesis": {
+            "text": "Hubble failed earlier becuase they weren't making enough discoveries.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 57,
+        "premise": {
+            "text": "At the heart of the sanctuary, a small granite shrine once held the sacred barque of Horus himself.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "Horus is a god.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 794,
+        "premise": {
+            "text": "We don't have much leeway around that 'one or two drinks a day,'  he said, and what isn't known is whether encouraging moderate drinking will also encourage excessive drinking.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "It's an established fact that encouraging moderate drinking does not increase rates of binge drinking.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 786,
+        "premise": {
+            "text": "At the opposite extreme are massive, almost riotous processions of thousands of bellowing, sweat-drenched men fighting to carry a huge portable shrine through the streets to a symbolic destination.",
+            "emotion_info": {
+                "arousal": 0.9,
+                "valence": 0.6,
+                "intensity": 0.85
+            }
+        },
+        "hypothesis": {
+            "text": "The destination for the portable shrine being fought over has no symbolism to it.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 863,
+        "premise": {
+            "text": "'It's nice to see you all.'",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.8,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "I don't want to see you.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 332,
+        "premise": {
+            "text": "Serious auto racing arrived in Las Vegas in 1996 with the opening of the Las Vegas Motor Speedway, 17 miles (27 km) north of Downtown on Interstate 15.",
+            "emotion_info": {
+                "arousal": 0.5,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The Las Vegas Motor Speedway continues to be the city's top tourist attraction.",
+            "emotion_info": {
+                "arousal": 0.5,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 701,
+        "premise": {
+            "text": "hm yeah i i enjoy volleyball i'm just not very good at it and i end up just",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "I'm better at volleyball than others. ",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 224,
+        "premise": {
+            "text": "In a culture where Xena and Hercules have hit TV shows, it's a lot more fun imagining that you are a valiant warrior doing business-as-battle than it is to admit that you're a pudgy functionary whose most daring deed is to draft a boldly worded memo.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Xena and Hercules both have hit shows on CBS.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 570,
+        "premise": {
+            "text": "Jon, still looking through Adrin's eyes, saw a wicked sharp blade burst through the Kal's chest.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.2,
+                "intensity": 0.9
+            }
+        },
+        "hypothesis": {
+            "text": "A blade went through Kal's chest.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.1,
+                "intensity": 0.9
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 704,
+        "premise": {
+            "text": "you know twenty dollars for tests and forty dollars for this and and you know and it creeps up on you you don't know that you know  you really you you don't know what it's gonna cost until it's all over",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "You know exactly how much it will cost throughout the whole process.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.7,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 655,
+        "premise": {
+            "text": "If you would like a more novel, self-drive way of exploring the desert, hire a Quad Runner.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.8,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Hire a Quad Runner to explore the desert in a more novel, self-drive way.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.9,
+                "intensity": 0.7
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 276,
+        "premise": {
+            "text": "Let me try it.\" She began snapping her fingers and saying the word eagerly, but nothing happened.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.4,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "She became frustrated when the spell didn't work. ",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.6
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 388,
+        "premise": {
+            "text": "Kuala Kangsar has long been famous for Malay College, set amid spacious grounds near the center of town, a prestigious and exclusive school for the Malay aristocracy since it was founded by the British in 1904.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Malay College was know for taking in any student regardless of their background.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.7,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 473,
+        "premise": {
+            "text": "Adopting a unified approach to reduce SO2, NOx and mercury is better than looking at each pollutant separately because of synergistic effects.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Mercury, NOx, and SO2 are best considered in harm reduction by themselves, since they bear no relation to each other.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 167,
+        "premise": {
+            "text": " the uncompromising Vel?\u00a1zquez portrait of ugly Queen Marianna of Austria; El Greco's powerfully mystic Christ on the Crose Ribera's gruesomely good-humored The Club Foot.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.8
+            }
+        },
+        "hypothesis": {
+            "text": "El Greco was a extremely famous Spanish painter whose work was often religious.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 994,
+        "premise": {
+            "text": "and i talked to someone about the uh the uh education system i forget exactly what the focus was on that one but that was fairly interesting and i've talked to somebody about credit card usage",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "I talked to someone about the education system and credit card usage.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 746,
+        "premise": {
+            "text": "Moreover, the U.S. and worldwide ammonia business is struggling because of slumping domestic demand and increased global capacity for the product and other nitrogen fertilizers derived from it, such as urea.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The ammonia business has been facing competition from the urea business.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 546,
+        "premise": {
+            "text": "After relying exclusively on overseas trade, Venice created a new land-owning aristocracy through this expansion.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "Venice never traded with anyone.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 175,
+        "premise": {
+            "text": "Are there children who need to be entertained?",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "No children ever want to be entertained.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 907,
+        "premise": {
+            "text": "yeah the uh this this guy did too he ended up going to Leavenworth which is good i'm glad",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "There was a guy who went to Leavenworth.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 623,
+        "premise": {
+            "text": "Under current law, LSC recipients may provide legal assistance to an alien if the alien is present in the United States and falls within one of several designated ",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "LSC recipients may provide legal aid to foreign people.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 73,
+        "premise": {
+            "text": "Mrs. Cavendish is in her mother-in-law's room. ",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "Mrs. Cavendish has left the building.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 663,
+        "premise": {
+            "text": "That goddamned hamster dance.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.8
+            }
+        },
+        "hypothesis": {
+            "text": "That darn little animal dance.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 699,
+        "premise": {
+            "text": "yes um-hum uh but you know back to the idea of parents i my my personal feelings is that parents need to be taking more responsibility i think the way i like to look at it you know a lot of people look at well whose job is it to teach the kids well it's the school's job i think whose job is it to teach the kids well primarily it's the parents job",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.4,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "I think parents have a greater responsibility in what concerns their children's education than school.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 970,
+        "premise": {
+            "text": "you know it's it's pretty nice and friendly out there and you can't find that in all sports",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.8,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "It's pretty nice and friendly out there in the soccer field",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 273,
+        "premise": {
+            "text": "Due to the amount of information now available, power has shifted from the physician to the patient.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Doctors have more power than ever thanks to better data availability.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 686,
+        "premise": {
+            "text": "The kiosk used by Williams is part of a statewide effort to cope with a flood of litigants who cannot afford or refuse to hire lawyers.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The kiosk is an attempt at easing the flood of litigants unable, or refusing, to hire attorneys. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 214,
+        "premise": {
+            "text": "What have you, my friend, he cried, \"that you remain there like, how do you say it?, ah, yes, the stuck pig?\" I explained that I was afraid of obliterating any foot-marks. ",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "I didn't say anything when he asked me that question.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 363,
+        "premise": {
+            "text": "yeah but that's that's true just about every",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "That is false.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 379,
+        "premise": {
+            "text": "Age, Health, and the Willingness to Pay for Mortality Risk  A Contingent",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Age, Health, and the Willingness to Pay for Mortality Risk A Contingent are very important topics being talked about worldwide.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 166,
+        "premise": {
+            "text": "Now conservatives are fighting back.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.4,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Conservatives are battling now.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.3,
+                "intensity": 0.7
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 373,
+        "premise": {
+            "text": "Someone was applauding.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "A person applauded.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 854,
+        "premise": {
+            "text": "yeah well let's see our our topic is uh elections",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Our topic is education. ",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 650,
+        "premise": {
+            "text": "(5)(A) The term baseline heat input means, except under subpart 1 of part B and section 407, the average annual heat input used by a unit during the three years in which the unit had the highest heat input for the period 1997 through 2001.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "The baseline heat input is the lowest annual heat input over 3 years.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 464,
+        "premise": {
+            "text": "The others followed.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The others had followed Jon.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 954,
+        "premise": {
+            "text": "You can take a ferryboat through the harbor, past the ingenious Plover Cove reservoir, a water catchment area appropriated by damming and draining a broad inlet from the sea.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "You cannot take a ferry boat through the harbour.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 947,
+        "premise": {
+            "text": "Despite occasional tensions, perhaps inevitable in times of economic uncertainty, today French people increasingly recognize that the immigrants from France's departements in the West Indies and from former colonies ' Algeria, Tunisia, and Morocco ' enrich the national culture and add spice to the country's cuisine.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "French people increasingly recognize that some immigrants recognize national culture and add spice to the country's cuisine.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 103,
+        "premise": {
+            "text": "In the east, Christian forces were in retreat as a new Moslem power began to rise.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Although the Christian forces were stronger, they were in retreat.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 887,
+        "premise": {
+            "text": "A short distance north of Timna Park is the Hai Bar Wildlife Reserve, where rare and endangered indigenous animals are bred for eventual release back into the wild.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The Hai Bar Wildlife Reserve is a zoo where all animals are kept in captivity their whole lives.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 978,
+        "premise": {
+            "text": "They were longitudinal, were made by on-site observers who sought participant-observer roles, and constituted an inquiry structured from an evolving understanding of events and their meaning to the persons involved in them.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "They were made on site by observers, constituted an inquiry, and were longitudinal.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 875,
+        "premise": {
+            "text": "you know having the time when you have younger ones to take care of you maybe sometimes do not take as much time for the older ones but uh we were we're very active of course at church and uh Boy Scouting and Girl Scouts Four H",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The time is well spent with the kids but less is spent with the older ones.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 81,
+        "premise": {
+            "text": "The man should have died instantly.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.1,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "The man was perfectly fine. ",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 296,
+        "premise": {
+            "text": "There's a sort of bidding war going on, with law schools offering ever-increasing financial packages -- most of it loans, said Dean Glen. ",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.4,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "No one really cares about the new students coming to their institutions. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.1,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 791,
+        "premise": {
+            "text": "you ever serve that yourself when you have company",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Did you ever serve that yourself when you had a company, it's awful.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 233,
+        "premise": {
+            "text": "probably so probably so um-hum",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "probably yes so uh-huh",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 677,
+        "premise": {
+            "text": "We recognize that federal agencies, including GAO, might be able to achieve some additional savings by taking more advantage of frequent flyer miles for government travel.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "GAO will end up spending more money on government travel costs if they use frequent flyer miles. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 46,
+        "premise": {
+            "text": "As long you have your own household in order, fretting about your neighbor's spending habits is a lot like fretting about the color of his living-room rug.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "You should worry about the color of your neighbor's rug. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 71,
+        "premise": {
+            "text": "Putting aside stage as a horse-drawn conveyance, a popular delicatessen, a part of a rocket, and an opportunity to mock Gail Sheehy (who seems to get a free ride from News Quiz participants), this question all but demanded the invention of a violent theatrical event, and that's not easy.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": " Gail Sheehy is a popular target for mocking on other shows.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 721,
+        "premise": {
+            "text": "To give the reader a basis for judging the prevalence and consequences of these findings, the instances identified should be related to the population or the number of cases examined and be quantified in terms of dollar",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "There population cannot be quantified into dollars.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 196,
+        "premise": {
+            "text": "i bet even my cats could do that",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "My cats could probably do that because they are brilliant.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 591,
+        "premise": {
+            "text": "That you value your origins, that you cradle old stories and remember old morals.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.8,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "You value your origins a lot.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 370,
+        "premise": {
+            "text": "Meanwhile, lawyers were at a premium Indians love litigation and it was ideal training for future politicians and politics had been clandestine, because it was so often fatal to express an opinion on the wrong (i.e. , losing) side.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.4,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "Lawyers were at a premium and it was ideal training for future politicians and politics.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 882,
+        "premise": {
+            "text": "harsh weather",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "good weather.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.8,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 906,
+        "premise": {
+            "text": "that sounds like it might be a really good idea",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "That sounds like a terrible idea",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 633,
+        "premise": {
+            "text": "oh the potato they were they're delicious but they you don't get seem to get that much for the space they they do",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "Potatoes need a lot of space to grow.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 643,
+        "premise": {
+            "text": "Since NOx emissions result in formation of ground-level ozone, reducing NOx emissions will reduce ozone levels and thus reduce the deleterious effects of ozone on human health and ecosystems.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "Reducing NOx emissions will have no effect on human health.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 849,
+        "premise": {
+            "text": "and it it was tough understanding understanding those folks",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "Understanding those people was easy. ",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 300,
+        "premise": {
+            "text": "You're mad.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "You are still sane.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 565,
+        "premise": {
+            "text": "From sandy beaches, broad brown rivers, and deep forests, to rising skyscrapers and wide expressways, Malaysia is set to exceed visitors' expectations.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.8,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "Malaysia is filled with so many natural and man-made wonders that's set to go beyond its tourist's expectations.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.9,
+                "intensity": 0.8
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 80,
+        "premise": {
+            "text": "Each of the men wore leather armor and dressed in the style of heavy riders.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The men were naked.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 387,
+        "premise": {
+            "text": "The Commission prepared a Final Regulatory Flexibility Analysis pursuant to section 604.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "The Commission put together a Final Regulatory Flexibility Analysis that went against Section 604.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 127,
+        "premise": {
+            "text": "Among these are the red brick Royal Palace, which now houses the Patan Museum (Nepal's finest and most modern museum), and, facing the palace across the narrow brick plaza, eight temples of different styles and sizes.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The Patan Museum is down the street from the red brick Royal Palace.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 549,
+        "premise": {
+            "text": "But too often downsizing means what it has in the Union Pacific  fewer people doing more work.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "Downsizing in the Union Pacific leads to more people doing less work.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 470,
+        "premise": {
+            "text": "The magazine's humor often depended on racist and sexist stereotypes, such as wide-grinned, watermelon-eating blacks.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.1,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "The magazine depended on this type of humor.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 747,
+        "premise": {
+            "text": "A survey of the history of Spain its tradition, grandeur, art, architecture and mix of cultures is crammed into this small city on a Castilian hilltop.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The city is known for being really huge.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 44,
+        "premise": {
+            "text": "You have access to the facts. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The facts are accessible to you.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 826,
+        "premise": {
+            "text": "restoration to his home i think that was called back because of all the flack they received but but that's the another one of the big examples of why we're in such dilemma",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Everyone gave them accolades. ",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.9,
+                "intensity": 0.7
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 270,
+        "premise": {
+            "text": "The great Kanto earthquake of 1923 destroyed some 60,000 homes in Yokohama and took over 20,000 lives.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.1,
+                "intensity": 0.9
+            }
+        },
+        "hypothesis": {
+            "text": "Yokohama took a long time to recover from the earthquake.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 618,
+        "premise": {
+            "text": "1.7, formerly methodology transfer paper 7.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "It used to be paper 7.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 352,
+        "premise": {
+            "text": "He was writing a warning, not a prescription.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.35,
+                "intensity": 0.25
+            }
+        },
+        "hypothesis": {
+            "text": "The police officer was writing a warning ticket, not a prescription from a doctor.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 867,
+        "premise": {
+            "text": "It assumes for cost-of-service areas (where most of power sales are likely to occur) that allowance allocations will not alter pricing of electricity.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "Cost-of-services areas are areas where most of power sales are likely to occur.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 367,
+        "premise": {
+            "text": "This brought forth a small number of articulate dissensions.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "This brought up happy feelings and warmth.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.6
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 99,
+        "premise": {
+            "text": "how can you prove it",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Can you tell me how to prove it?",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 389,
+        "premise": {
+            "text": "By the 11th century, the caliphate had splintered into a mosaic of fractious states 26 at one point, and the Balearics became an independent emirate.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The caliph was still a very important position of power.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 94,
+        "premise": {
+            "text": "So, I went to court by myself and told them the truth, but it didn't do me any good.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "I went and told the truth at court but it didn't do me any good.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 990,
+        "premise": {
+            "text": "The fire burns, and it destroys. ",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "The fire destroyed it. ",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.8
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 344,
+        "premise": {
+            "text": "When he married in 1901, he and his wife (Olga Knipper of the Moscow Art Theater) went directly from the ceremony to a honeymoon in a sanitarium.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "His wife has never went to a sanitarium. ",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 781,
+        "premise": {
+            "text": "(Actually, you could have as many judges as you wanted, as long as you ignored all but one of them.)",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "You can have a lot of judges for your crime.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 220,
+        "premise": {
+            "text": "Who could there be?\"",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The speaker doesn't know who it is.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 159,
+        "premise": {
+            "text": "(Kohler's Dictionary for Accountants) CONTRACT AUTHORITY - Contract authority is a subset of budget authority.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "Contract authority must be granted by the financial authority.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 964,
+        "premise": {
+            "text": "A remnant of the second century a.d. wall that once supported the Temple Mount, this is the most revered place in the world for the Jewish faith.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.7,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "The remnant of the wall is an interesting historical artifact, but doesn't have much religious meaning anymore.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 348,
+        "premise": {
+            "text": "The point isn't that polls are dishonest.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.45,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Dishonest polls is not the point being made.  ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 983,
+        "premise": {
+            "text": "but anyway well um i can't think of a whole lot more to say",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "I can't say more about immigration.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 714,
+        "premise": {
+            "text": "In between was a column of riders, lighting fast and able to cleave into any resistance the two groups of foot soldiers ran into.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.6,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "Between the light, there were many riders, quickly riding through the groups of foot soldiers.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.5,
+                "intensity": 0.6
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 163,
+        "premise": {
+            "text": "In applying this requirement, the following factors may influence the auditors' assessment of control ",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "The influence of the following factors is possible.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 825,
+        "premise": {
+            "text": "i don't know i think they'll go i think they'll they're good but they're not great but i think they'll",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "I don't think they'll go because they're a lousy team. ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.5
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 777,
+        "premise": {
+            "text": "oh i see so if you have fresh dirt they'll",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.15
+            }
+        },
+        "hypothesis": {
+            "text": "If you have fresh dirt I can see that.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 6,
+        "premise": {
+            "text": "But a few Christian mosaics survive above the apse is the Virgin with the infant Jesus, with the Archangel Gabriel to the right (his companion Michael, to the left, has vanished save for a few feathers from his wings).",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Most of the Christian mosaics were destroyed by Muslims.  ",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.8
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 890,
+        "premise": {
+            "text": "For several years he held court in Valladolid, though eventually he returned to Madrid.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.15
+            }
+        },
+        "hypothesis": {
+            "text": "He was very glad to return to the bustling streets of Madrid.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.8,
+                "intensity": 0.7
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 828,
+        "premise": {
+            "text": "But the real problem with diGenova and Toensing isn't their pundit addiction or their neglect of an investigation that Democrats would just as soon they neglect anyhow.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Both diGenova and Toensing have no personal reason to pay attention to the investigation.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 284,
+        "premise": {
+            "text": "In June you can watch dealers haggling over heaps of white silkworm cocoons.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "During the summer months dealers barter for piles of silkworm cocoons.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 603,
+        "premise": {
+            "text": "Sometimes the people who represent themselves don't even know the significant facts of their case.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The law is very easy to understand, so representing yourself in court is the best way to win a case.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 459,
+        "premise": {
+            "text": "A company of handweavers has been working here since at least 1723, and visitors are able to watch them at work, but their products have become less distinctive since they expanded into a popular tourist attraction.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Tourists can view the company of handweavers work, but the historic company have less distinctive products now due to becoming a popular attraction.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 225,
+        "premise": {
+            "text": "Laibson's imperfect altruists face a far subtler problem--they're not just weighing costs and benefits, they're engaged in games of strategy against their future selves.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.45,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "Laibson has selfish people that follow him.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 429,
+        "premise": {
+            "text": "Encapuchadores bind these male trees in spring to produce the pale, bleached fronds that are used in Palm Sunday celebrations.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "There are no celebrations on Palm Sunday.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 986,
+        "premise": {
+            "text": "um yeah but you need to continue to read so you you can people learn to read you know",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Nobody needs to read at all.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 718,
+        "premise": {
+            "text": "Once in production, programs will cut quantities to maintain funding or once fielded, they rely on the operations and maintenance budget to pay for reliability problems not solved in development.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "Once in production, the programs will not cut its quantities.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 665,
+        "premise": {
+            "text": "uh i work on my own i've got an nineteen eighty Trans Am that i've had uh since it was new",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "I work solo and also own a 1980 Trans Am.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 733,
+        "premise": {
+            "text": "And quite a different class from them two detectives from London, what goes prying about, and asking questions. ",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The London detectives are very unlikable because they are too curious. ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.5
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 203,
+        "premise": {
+            "text": "All we've done is checked that the first two creditors divided their collective share of $125 appropriately",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "The first two creditors divided their shares correctly.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 574,
+        "premise": {
+            "text": "So-called Houston! This one problem, Denise, or maybe Dennis, was repeating.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "There is a question about the gender of the announcer.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 27,
+        "premise": {
+            "text": "yeah well you're a student right",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Well you're a mechanics student right?",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 616,
+        "premise": {
+            "text": "I had a slew of comfortable rooms with cushions everywhere, and a fridge forever stocked with fatty foods.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.8,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "There were fattening foods in the refrigerator.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 517,
+        "premise": {
+            "text": "Locked up in the desk in the boudoir, they found a will of Mrs. Inglethorp's, dated before her marriage, leaving her fortune to Alfred Inglethorp. ",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "They found Mrs. Inglethorp's will, which left all her fortune to Alfred Inglethorp.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.7
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 238,
+        "premise": {
+            "text": "Just a hunch.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "It is just a guess",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 223,
+        "premise": {
+            "text": "Alcohol use and trauma.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.8
+            }
+        },
+        "hypothesis": {
+            "text": "Trauma is the leading cause of alcohol abuse.",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.1,
+                "intensity": 0.8
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 95,
+        "premise": {
+            "text": "Click More Links (on the right-hand side under Miscellaneous), and from",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "There are no links to click under Miscellaneous.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.4,
+                "intensity": 0.1
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 30,
+        "premise": {
+            "text": "And in another shift in the economy, it was found that lamb could be raised more cost-effectively on lowland farms in part because of the richer, more nutritious grazing land available there and as a result Lakeland farms became less profitable.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Another shift in the economy was found to be more nutritious.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 32,
+        "premise": {
+            "text": "Almost every hill has to the northeast there's a Moorish fort; no fewer than four ruined fortresses guard the harbour entrance; and two more, still in good repair the Atalaya and Galeras castles protect the sea-front arsenal, of vital importance to Spain's military.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "There are no castles Atalaya and Galeras.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 432,
+        "premise": {
+            "text": "I beg your pardon. A man's voice beside her made her start and turn.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.4,
+                "intensity": 0.5
+            }
+        },
+        "hypothesis": {
+            "text": "She was startled by the man and turned when he said I beg your pardon. ",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.4,
+                "intensity": 0.6
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 604,
+        "premise": {
+            "text": "Using lower cut points for females may maximize screening test performance.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "Females might perform higher on the screening tests if the cut points are reduced.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 89,
+        "premise": {
+            "text": "Back on the road to Jaisalmer, one last splash of color delights the senses before you plunge into the the fields are dotted with mounds of red hot chili peppers.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.8,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "The road to Jaisalmer is bumpy and unpleasant to ride on. ",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.2,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 558,
+        "premise": {
+            "text": "The New Territories can be explored by taking the Kowloon Canton Railway (KCR), which makes 10 stops between the station in Kowloon and Sheung Shui, the last stop before entering China.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "The Kowloon Canton Railway makes over five stops between the station and Sheung Shui.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 913,
+        "premise": {
+            "text": "a) Spun the president's denial for months without bothering to check if it was true.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        },
+        "hypothesis": {
+            "text": "The president made wrong statements.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 758,
+        "premise": {
+            "text": "yeah i don't mind the heat that much it doesn't bother me that much cold weather i just i don't know i just can't tolerate too much with the",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "I am alright in hot weather but it is hard for me to tolerate cold weather.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 692,
+        "premise": {
+            "text": "Why didn't you kill me off at once before I regained consciousness?\" The German hesitated, and Tommy seized his advantage.",
+            "emotion_info": {
+                "arousal": 0.8,
+                "valence": 0.2,
+                "intensity": 0.9
+            }
+        },
+        "hypothesis": {
+            "text": "The German waited too long and gave Tommy an advantage.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 104,
+        "premise": {
+            "text": "We have been told on reasonably high authority that true charity vaunteth not itself",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "True charity vaunts itself, we have been told.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 754,
+        "premise": {
+            "text": "two yeah yeah and then of course Indianapolis which is only a hundred miles away from us has the Colts yeah",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "We ill go to Indianapolis to see the Colts.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 142,
+        "premise": {
+            "text": "and they keep taking more money from us yeah people and get and they don't have any incentive to work if we're just gonna take fifty percent of it",
+            "emotion_info": {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        },
+        "hypothesis": {
+            "text": "People have a lot of incentive to work because they take home every penny earned.",
+            "emotion_info": {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        },
+        "label": 2
+    },
+    {
+        "idx": 228,
+        "premise": {
+            "text": "The New York Times ' Janet Maslin says the film works precisely because it is derivative--its stars, Matt Dillon and Gary Sinise, emulate the characters in The Usual Suspects , which gives them extraordinary opportunities to preen.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "The movie stars Matt Dillon and Gary Sinise.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 250,
+        "premise": {
+            "text": "Mrs. Vandemeyer, she read, \"20 South Audley Mansions.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "hypothesis": {
+            "text": "\"20 South Audley Mansions\" is a book that Mrs. Vandemeyer read.",
+            "emotion_info": {
+                "arousal": 0.1,
+                "valence": 0.5,
+                "intensity": 0.1
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 281,
+        "premise": {
+            "text": "Perhaps he should clear out even farther and head for California.",
+            "emotion_info": {
+                "arousal": 0.4,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "Maybe he should head for California to clear out even farther?",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 759,
+        "premise": {
+            "text": "Near the centrally located Japan Railways station is the first sign of the Portuguese role in the city's fascinating history.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "There is a sign near the railway station that depicts the portuguese involvement in Japan.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 25,
+        "premise": {
+            "text": "and it's it's quite a bit i think six something is the state and and uh the rest of the pie goes elsewhere but we're in a particular part of the state that's pretty well off so it's it's like we get a lot of that back as far as local taxation goes",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        },
+        "hypothesis": {
+            "text": "I do not know exactly where the local taxes go.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.3
+            }
+        },
+        "label": 1
+    },
+    {
+        "idx": 114,
+        "premise": {
+            "text": "The river plays a central role in all visits to Paris.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "hypothesis": {
+            "text": "The river is central to all vacations to Paris.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        },
+        "label": 0
+    },
+    {
+        "idx": 654,
+        "premise": {
+            "text": "Who is Stark? asked Jon.",
+            "emotion_info": {
+                "arousal": 0.3,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "hypothesis": {
+            "text": "Jon asked who Stark was and what he did for a living.",
+            "emotion_info": {
+                "arousal": 0.2,
+                "valence": 0.5,
+                "intensity": 0.2
+            }
+        },
+        "label": 1
+    }
+]
