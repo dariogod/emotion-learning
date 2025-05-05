@@ -1,0 +1,242 @@
+[
+    {
+        "idx": 980,
+        "sentence": "is the refreshingly unhibited enthusiasm that the people , in spite of clearly evident poverty and hardship , bring to their music ",
+        "emotion_info": [
+            {
+                "arousal": 0.8,
+                "valence": 0.7,
+                "intensity": 0.75
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 981,
+        "sentence": "would n't have taken the protagonists a full hour to determine that in order to kill a zombie you must shoot it in the head ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.3,
+                "intensity": 0.5
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 982,
+        "sentence": "give a pretty good overall picture of the situation in laramie following the murder of matthew shepard ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 983,
+        "sentence": "the fine line between cheese and earnestness remarkably well ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 984,
+        "sentence": "a documentary fails to live up to -- or offer any new insight into -- its chosen topic ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 985,
+        "sentence": "serious movie-goers embarking upon this journey ",
+        "emotion_info": [
+            {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 986,
+        "sentence": "insistent and repetitive ",
+        "emotion_info": [
+            {
+                "arousal": 0.7,
+                "valence": 0.4,
+                "intensity": 0.6
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 987,
+        "sentence": "nausea ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.1,
+                "intensity": 0.7
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 988,
+        "sentence": "of survival wrapped in the heart-pounding suspense of a stylish psychological thriller ",
+        "emotion_info": [
+            {
+                "arousal": 0.85,
+                "valence": 0.3,
+                "intensity": 0.8
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 989,
+        "sentence": "no art ",
+        "emotion_info": [
+            {
+                "arousal": 0.1,
+                "valence": 0.3,
+                "intensity": 0.2
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 990,
+        "sentence": "seems to exist only for its climactic setpiece ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 991,
+        "sentence": "more silly than scary ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 992,
+        "sentence": "'s funny . ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.2
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 993,
+        "sentence": "its execution and skill ",
+        "emotion_info": [
+            {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 994,
+        "sentence": "'s coherent , well shot , and tartly ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.2
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 995,
+        "sentence": "you wish you were at home watching that movie instead of in the theater watching this one ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 996,
+        "sentence": "'s no point in extracting the bare bones of byatt 's plot for purposes of bland hollywood romance ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 997,
+        "sentence": "underdeveloped ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 998,
+        "sentence": "the jokes are flat ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 999,
+        "sentence": "a heartening tale of small victories ",
+        "emotion_info": [
+            {
+                "arousal": 0.4,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        ],
+        "label": 1
+    }
+]

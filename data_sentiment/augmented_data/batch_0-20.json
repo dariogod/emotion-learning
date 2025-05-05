@@ -1,0 +1,242 @@
+[
+    {
+        "idx": 0,
+        "sentence": "hide new secretions from the parental units ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 1,
+        "sentence": "contains no wit , only labored gags ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.1,
+                "intensity": 0.3
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 2,
+        "sentence": "that loves its characters and communicates something rather beautiful about human nature ",
+        "emotion_info": [
+            {
+                "arousal": 0.4,
+                "valence": 0.9,
+                "intensity": 0.7
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 3,
+        "sentence": "remains utterly satisfied to remain the same throughout ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 4,
+        "sentence": "on the worst revenge-of-the-nerds clich\u00e9s the filmmakers could dredge up ",
+        "emotion_info": [
+            {
+                "arousal": 0.7,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 5,
+        "sentence": "that 's far too tragic to merit such superficial treatment ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.2,
+                "intensity": 0.7
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 6,
+        "sentence": "demonstrates that the director of such hollywood blockbusters as patriot games can still turn out a small , personal film with an emotional wallop . ",
+        "emotion_info": [
+            {
+                "arousal": 0.7,
+                "valence": 0.8,
+                "intensity": 0.75
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 7,
+        "sentence": "of saucy ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 8,
+        "sentence": "a depressed fifteen-year-old 's suicidal poetry ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.1,
+                "intensity": 0.8
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 9,
+        "sentence": "are more deeply thought through than in most ` right-thinking ' films ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 10,
+        "sentence": "goes to absurd lengths ",
+        "emotion_info": [
+            {
+                "arousal": 0.7,
+                "valence": 0.3,
+                "intensity": 0.6
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 11,
+        "sentence": "for those moviegoers who complain that ` they do n't make movies like they used to anymore ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 12,
+        "sentence": "the part where nothing 's happening , ",
+        "emotion_info": [
+            {
+                "arousal": 0.1,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 13,
+        "sentence": "saw how bad this movie was ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 14,
+        "sentence": "lend some dignity to a dumb story ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 15,
+        "sentence": "the greatest musicians ",
+        "emotion_info": [
+            {
+                "arousal": 0.7,
+                "valence": 0.9,
+                "intensity": 0.8
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 16,
+        "sentence": "cold movie ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.25
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 17,
+        "sentence": "with his usual intelligence and subtlety ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 18,
+        "sentence": "redundant concept ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.2
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 19,
+        "sentence": "swimming is above all about a young woman 's face , and by casting an actress whose face projects that woman 's doubts and yearnings , it succeeds . ",
+        "emotion_info": [
+            {
+                "arousal": 0.4,
+                "valence": 0.6,
+                "intensity": 0.5
+            }
+        ],
+        "label": 1
+    }
+]

@@ -1,0 +1,242 @@
+[
+    {
+        "idx": 200,
+        "sentence": "told in scattered fashion ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 201,
+        "sentence": "takes chances that are bold by studio standards ",
+        "emotion_info": [
+            {
+                "arousal": 0.7,
+                "valence": 0.6,
+                "intensity": 0.65
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 202,
+        "sentence": "believe it or not , jason actually takes a backseat in his own film to special effects ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.4,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 203,
+        "sentence": "only thing to fear about `` fear dot com '' ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.2,
+                "intensity": 0.25
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 204,
+        "sentence": "whole mess ",
+        "emotion_info": [
+            {
+                "arousal": 0.65,
+                "valence": 0.2,
+                "intensity": 0.6
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 205,
+        "sentence": "manages to infuse the rocky path to sibling reconciliation with flashes of warmth and gentle humor ",
+        "emotion_info": [
+            {
+                "arousal": 0.4,
+                "valence": 0.7,
+                "intensity": 0.5
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 206,
+        "sentence": "working from a surprisingly sensitive script co-written by gianni romoli ... ozpetek avoids most of the pitfalls you 'd expect in such a potentially sudsy set-up . ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.7,
+                "intensity": 0.4
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 207,
+        "sentence": "a r\u00e9sum\u00e9 loaded with credits like `` girl in bar # 3 ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.25
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 208,
+        "sentence": "enjoy the ride ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.8,
+                "intensity": 0.5
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 209,
+        "sentence": "very little to add beyond the dark visions already relayed by superb recent predecessors ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.3
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 210,
+        "sentence": "the , yes , snail-like pacing ",
+        "emotion_info": [
+            {
+                "arousal": 0.1,
+                "valence": 0.3,
+                "intensity": 0.2
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 211,
+        "sentence": "an extremely unpleasant film . ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.1,
+                "intensity": 0.7
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 212,
+        "sentence": "if it is n't entirely persuasive , it does give exposure to some talented performers ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.6,
+                "intensity": 0.4
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 213,
+        "sentence": "the whole affair , true story or not , feels incredibly hokey ... ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.3,
+                "intensity": 0.4
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 214,
+        "sentence": "are all things we 've seen before ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.4,
+                "intensity": 0.2
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 215,
+        "sentence": "poignant and leavened ",
+        "emotion_info": [
+            {
+                "arousal": 0.3,
+                "valence": 0.45,
+                "intensity": 0.6
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 216,
+        "sentence": "breathless anticipation ",
+        "emotion_info": [
+            {
+                "arousal": 0.8,
+                "valence": 0.6,
+                "intensity": 0.7
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 217,
+        "sentence": "significantly better ",
+        "emotion_info": [
+            {
+                "arousal": 0.6,
+                "valence": 0.8,
+                "intensity": 0.7
+            }
+        ],
+        "label": 1
+    },
+    {
+        "idx": 218,
+        "sentence": "as predictable as the tides ",
+        "emotion_info": [
+            {
+                "arousal": 0.2,
+                "valence": 0.6,
+                "intensity": 0.3
+            }
+        ],
+        "label": 0
+    },
+    {
+        "idx": 219,
+        "sentence": "bewilderingly brilliant and entertaining ",
+        "emotion_info": [
+            {
+                "arousal": 0.8,
+                "valence": 0.9,
+                "intensity": 0.85
+            }
+        ],
+        "label": 1
+    }
+]
