@@ -277,6 +277,11 @@ class EmotionWeightedTrainer(Trainer):
         ]
         logger.info(f"Using emotion features in loss: {self.emotion_features}")
         logger.info(f"Emotion loss weight: {self.emotion_loss_weight}")
+        
+        # Initialize running mean for emotion loss components to ensure they average to zero
+        self.running_mean = 0.0
+        self.count = 0
+        self.momentum = 0.99  # Momentum for running average calculation
     
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         """
@@ -323,6 +328,7 @@ class EmotionWeightedTrainer(Trainer):
         
         # Calculate emotion-based loss component if any emotion features were provided
         emotion_loss = 0.0
+        raw_emotion_loss = 0.0
         if emotion_features and self.emotion_loss_weight > 0:
             # Get predicted class probabilities
             probs = F.softmax(logits, dim=-1)
@@ -345,7 +351,7 @@ class EmotionWeightedTrainer(Trainer):
                 if entailment_mask.any():
                     intensity_loss[entailment_mask] = premise_intensity[entailment_mask] * (1 - probs[entailment_mask, 1])
                 
-                emotion_loss += intensity_loss.mean()
+                raw_emotion_loss += intensity_loss.mean()
             
             # Similar approach for hypothesis intensity
             if "hypothesis_intensity" in emotion_features:
@@ -360,7 +366,7 @@ class EmotionWeightedTrainer(Trainer):
                 if entailment_mask.any():
                     intensity_loss[entailment_mask] = hypothesis_intensity[entailment_mask] * (1 - probs[entailment_mask, 1])
                 
-                emotion_loss += intensity_loss.mean()
+                raw_emotion_loss += intensity_loss.mean()
             
             # Process valence features
             # Valence difference (positive vs negative emotion) can indicate contradiction
@@ -383,7 +389,7 @@ class EmotionWeightedTrainer(Trainer):
                 if entailment_mask.any():
                     valence_loss[entailment_mask] = valence_diff[entailment_mask] * probs[entailment_mask, 0]
                 
-                emotion_loss += 0.5 * valence_loss.mean()  # Weight this component less
+                raw_emotion_loss += 0.5 * valence_loss.mean()  # Weight this component less
             
             # Process arousal features
             # Arousal difference can indicate semantic distance
@@ -405,7 +411,7 @@ class EmotionWeightedTrainer(Trainer):
                 if entailment_mask.any():
                     arousal_loss[entailment_mask] = arousal_diff[entailment_mask] * probs[entailment_mask, 0]
                 
-                emotion_loss += 0.5 * arousal_loss.mean()  # Weight this component less
+                raw_emotion_loss += 0.5 * arousal_loss.mean()  # Weight this component less
             
             # Contrast is the emotional difference between premise and hypothesis
             # Higher contrast should increase the probability of contradiction
@@ -423,34 +429,40 @@ class EmotionWeightedTrainer(Trainer):
                 if entailment_mask.any():
                     contrast_loss[entailment_mask] = contrast[entailment_mask] * probs[entailment_mask, 0]
                 
-                emotion_loss += contrast_loss.mean()
+                raw_emotion_loss += contrast_loss.mean()
         
-        # Normalize the emotion loss to be on a similar scale as the standard loss
-        if emotion_loss > 0:
-            # Get statistics for both losses to normalize them
-            with torch.no_grad():
-                # Store original values for logging purposes
-                original_weighted_loss = weighted_loss.item()
-                original_emotion_loss = emotion_loss.item()
-                
-                # Calculate ratio between standard and emotion loss
-                loss_ratio = weighted_loss / (emotion_loss + 1e-10)  # avoid division by zero
-                
-                # Apply normalization to emotion loss only if significantly different scales
-                if loss_ratio > 5.0 or loss_ratio < 0.2:
-                    # Scale emotion loss to be roughly the same magnitude as standard loss
-                    emotion_loss = emotion_loss * loss_ratio
-                    
-                    # Log the normalization for debugging
-                    if self.debug_loss or (hasattr(self, 'state') and self.state.global_step % 100 == 0):
-                        logger.info(f"Loss normalization applied - Standard: {original_weighted_loss:.4f}, "
-                                  f"Emotion: {original_emotion_loss:.4f}, Ratio: {loss_ratio:.4f}, "
-                                  f"Normalized emotion: {emotion_loss.item():.4f}")
+            # Update the running mean of emotion loss to ensure it averages to zero over time
+            if self.training:
+                # Detach to avoid keeping gradient history
+                raw_emotion_loss_val = raw_emotion_loss.detach().item()
+                if self.count == 0:
+                    self.running_mean = raw_emotion_loss_val
+                else:
+                    # Update running mean with momentum
+                    self.running_mean = self.momentum * self.running_mean + (1 - self.momentum) * raw_emotion_loss_val
+                self.count += 1
+            
+            # Center the emotion loss around zero by subtracting the running mean
+            # This ensures that on average, the emotion loss component is zero
+            emotion_loss = raw_emotion_loss - self.running_mean
+            
+            # Log emotion loss statistics for debugging
+            if self.debug_loss or (hasattr(self, 'state') and self.state.global_step % 100 == 0):
+                logger.info(f"Emotion loss stats - Raw: {raw_emotion_loss.item():.4f}, "
+                          f"Centered: {emotion_loss.item():.4f}, "
+                          f"Running mean: {self.running_mean:.4f}")
         
         # Combine the standard loss with the emotion-based loss
         final_loss = (1 - self.emotion_loss_weight) * weighted_loss
-        if emotion_loss > 0:
+        if emotion_features and self.emotion_loss_weight > 0:
             final_loss += self.emotion_loss_weight * emotion_loss
+            
+            # Debug logging
+            if self.debug_loss and hasattr(self, 'state') and self.state.global_step % 100 == 0:
+                logger.info(f"Loss components - CE: {weighted_loss.item():.4f}, "
+                          f"Emotion: {emotion_loss.item():.4f}, "
+                          f"Final: {final_loss.item():.4f}, "
+                          f"Running mean: {self.running_mean:.4f}")
         
         return (final_loss, outputs) if return_outputs else final_loss
 

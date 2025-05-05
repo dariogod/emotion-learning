@@ -58,21 +58,42 @@ def parse_args():
         help="Apply moving average smoothing with the specified window size"
     )
     
+    parser.add_argument(
+        "--standard_metrics", 
+        type=str,
+        default=None,
+        help="Path to standard training metrics file (no emotion)"
+    )
+    
+    parser.add_argument(
+        "--colormap",
+        type=str,
+        choices=["viridis", "rainbow", "tab10", "Set1", "Dark2", "hsv"],
+        default="rainbow",
+        help="Colormap to use for weight lines"
+    )
+    
     return parser.parse_args()
 
-def load_metrics_files(metrics_files: List[str] = None, metrics_dir: str = None) -> List[Dict[str, Any]]:
+def load_metrics_files(metrics_files: List[str] = None, metrics_dir: str = None, standard_metrics: str = None) -> List[Dict[str, Any]]:
     """
     Load metrics from JSON files.
     
     Args:
         metrics_files: List of file paths to metrics JSON files
         metrics_dir: Directory containing metrics files
+        standard_metrics: Path to standard metrics file
     
     Returns:
         List of loaded metrics data dictionaries
     """
     metrics_data = []
     file_paths = []
+    
+    # If specific standard metrics file is provided, add it first
+    if standard_metrics and os.path.exists(standard_metrics):
+        file_paths.append(standard_metrics)
+        print(f"Using specified standard metrics file: {standard_metrics}")
     
     # If metrics_dir is provided, find all metrics files recursively
     if metrics_dir and os.path.isdir(metrics_dir):
@@ -82,10 +103,15 @@ def load_metrics_files(metrics_files: List[str] = None, metrics_dir: str = None)
                 # Only load training metrics files, not final test metrics
                 if file.endswith("metrics.json") and not file.startswith("final_test"):
                     file_path = os.path.join(root, file)
-                    file_paths.append(file_path)
-                    print(f"Found metrics file: {file_path}")
+                    # Skip the standard metrics if already added
+                    if file_path != standard_metrics:
+                        file_paths.append(file_path)
+                        print(f"Found metrics file: {file_path}")
     else:
-        file_paths = metrics_files if metrics_files else []
+        # If no metrics_dir, add all metrics_files except standard_metrics
+        for file_path in (metrics_files or []):
+            if file_path != standard_metrics:
+                file_paths.append(file_path)
     
     print(f"\nAttempting to load {len(file_paths)} metrics files...")
     
@@ -175,7 +201,8 @@ def extract_emotion_weight(file_path):
     return None
 
 def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str, 
-                            compare_mode: str = "emotion_vs_standard", smooth: int = 0):
+                            compare_mode: str = "emotion_vs_standard", smooth: int = 0,
+                            colormap: str = "rainbow"):
     """
     Create a plot comparing accuracy across different runs.
     
@@ -184,6 +211,7 @@ def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str
         output_dir: Directory to save the plot
         compare_mode: How to compare the metrics ('emotion_vs_standard', 'all', or 'weight_sweep')
         smooth: Window size for moving average smoothing
+        colormap: Colormap to use for weight lines
     """
     os.makedirs(output_dir, exist_ok=True)
     
@@ -251,9 +279,15 @@ def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str
         for data in metrics_data:
             weight = extract_emotion_weight(data['file_path'])
             
-            if weight is None:
-                # This is a standard run
-                standard_runs.append(data)
+            if weight is None or weight == 0.0:
+                # This is a standard run or emotion with weight 0.0
+                if data['run_info'].get('emotion_used', False) == False:
+                    standard_runs.append(data)
+                else:
+                    # Weight is 0.0 but emotion is used - add to weight groups
+                    if 0.0 not in weight_groups:
+                        weight_groups[0.0] = []
+                    weight_groups[0.0].append(data)
             else:
                 # Add to the appropriate weight group
                 if weight not in weight_groups:
@@ -284,11 +318,21 @@ def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str
         
         # Plot different emotion weights with a color gradient
         weights = sorted(weight_groups.keys())
-        cmap = plt.cm.viridis  # Color map
+        
+        # Use more distinctive colormap for better visualization
+        if colormap == "tab10" or colormap == "Set1" or colormap == "Dark2":
+            # For categorical colormaps, manually assign colors
+            cmap_obj = plt.get_cmap(colormap)
+            num_colors = min(len(weights), 10)  # Most categorical maps have 10 colors
+            colors = [cmap_obj(i % num_colors) for i in range(len(weights))]
+        else:
+            # For continuous colormaps, use the colormap gradient
+            cmap_obj = plt.get_cmap(colormap)
+            colors = [cmap_obj(i / max(1, len(weights) - 1)) for i in range(len(weights))]
         
         for i, weight in enumerate(weights):
             runs = weight_groups[weight]
-            color = cmap(i / max(1, len(weights) - 1))  # Color from the gradient
+            color = colors[i]
             
             weight_accuracies = []
             for run in runs:
@@ -309,8 +353,12 @@ def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str
                 if aligned_accuracies:
                     avg_accuracy = np.mean(aligned_accuracies, axis=0)
                     epochs = list(range(1, min_length + 1))
-                    plt.plot(epochs, avg_accuracy, '-', color=color, linewidth=3, 
+                    linestyle = '--' if weight == 0.0 else '-'
+                    plt.plot(epochs, avg_accuracy, linestyle, color=color, linewidth=3, 
                              label=f"Emotion Weight {weight:.1f}")
+        
+        # Add a legend with two columns for better readability
+        plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=2)
     
     else:  # compare_mode == "all"
         # Plot each run individually
@@ -342,7 +390,8 @@ def plot_accuracy_comparison(metrics_data: List[Dict[str, Any]], output_dir: str
     plt.close()
 
 def plot_f1_comparison(metrics_data: List[Dict[str, Any]], output_dir: str, 
-                      compare_mode: str = "emotion_vs_standard", smooth: int = 0):
+                      compare_mode: str = "emotion_vs_standard", smooth: int = 0,
+                      colormap: str = "rainbow"):
     """
     Create a plot comparing F1 scores across different runs.
     
@@ -351,6 +400,7 @@ def plot_f1_comparison(metrics_data: List[Dict[str, Any]], output_dir: str,
         output_dir: Directory to save the plot
         compare_mode: How to compare the metrics ('emotion_vs_standard', 'all', or 'weight_sweep')
         smooth: Window size for moving average smoothing
+        colormap: Colormap to use for weight lines
     """
     os.makedirs(output_dir, exist_ok=True)
     
@@ -416,9 +466,15 @@ def plot_f1_comparison(metrics_data: List[Dict[str, Any]], output_dir: str,
         for data in metrics_data:
             weight = extract_emotion_weight(data['file_path'])
             
-            if weight is None:
-                # This is a standard run
-                standard_runs.append(data)
+            if weight is None or weight == 0.0:
+                # This is a standard run or emotion with weight 0.0
+                if data['run_info'].get('emotion_used', False) == False:
+                    standard_runs.append(data)
+                else:
+                    # Weight is 0.0 but emotion is used - add to weight groups
+                    if 0.0 not in weight_groups:
+                        weight_groups[0.0] = []
+                    weight_groups[0.0].append(data)
             else:
                 # Add to the appropriate weight group
                 if weight not in weight_groups:
@@ -449,11 +505,21 @@ def plot_f1_comparison(metrics_data: List[Dict[str, Any]], output_dir: str,
         
         # Plot different emotion weights with a color gradient
         weights = sorted(weight_groups.keys())
-        cmap = plt.cm.viridis  # Color map
+        
+        # Use more distinctive colormap for better visualization
+        if colormap == "tab10" or colormap == "Set1" or colormap == "Dark2":
+            # For categorical colormaps, manually assign colors
+            cmap_obj = plt.get_cmap(colormap)
+            num_colors = min(len(weights), 10)  # Most categorical maps have 10 colors
+            colors = [cmap_obj(i % num_colors) for i in range(len(weights))]
+        else:
+            # For continuous colormaps, use the colormap gradient
+            cmap_obj = plt.get_cmap(colormap)
+            colors = [cmap_obj(i / max(1, len(weights) - 1)) for i in range(len(weights))]
         
         for i, weight in enumerate(weights):
             runs = weight_groups[weight]
-            color = cmap(i / max(1, len(weights) - 1))  # Color from the gradient
+            color = colors[i]
             
             weight_f1s = []
             for run in runs:
@@ -474,8 +540,12 @@ def plot_f1_comparison(metrics_data: List[Dict[str, Any]], output_dir: str,
                 if aligned_f1s:
                     avg_f1 = np.mean(aligned_f1s, axis=0)
                     epochs = list(range(1, min_length + 1))
-                    plt.plot(epochs, avg_f1, '-', color=color, linewidth=3, 
+                    linestyle = '--' if weight == 0.0 else '-'
+                    plt.plot(epochs, avg_f1, linestyle, color=color, linewidth=3, 
                              label=f"Emotion Weight {weight:.1f}")
+        
+        # Add a legend with two columns for better readability
+        plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=2)
     
     else:  # compare_mode == "all"
         # Plot each run individually
@@ -626,15 +696,15 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     
     # Load metrics files
-    metrics_data = load_metrics_files(args.metrics_files, args.metrics_dir)
+    metrics_data = load_metrics_files(args.metrics_files, args.metrics_dir, args.standard_metrics)
     
     if not metrics_data:
         print("No metrics data to visualize. Exiting.")
         return
     
     # Create plots
-    plot_accuracy_comparison(metrics_data, args.output_dir, args.compare_mode, args.smooth)
-    plot_f1_comparison(metrics_data, args.output_dir, args.compare_mode, args.smooth)
+    plot_accuracy_comparison(metrics_data, args.output_dir, args.compare_mode, args.smooth, args.colormap)
+    plot_f1_comparison(metrics_data, args.output_dir, args.compare_mode, args.smooth, args.colormap)
     plot_per_class_f1(metrics_data, args.output_dir, args.compare_mode, args.smooth)
     
     print(f"All plots saved to {args.output_dir}")
